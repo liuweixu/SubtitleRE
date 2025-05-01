@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Button, Card, Form, Input, Radio  } from 'antd';
+import React from 'react';
+import { Button, Card, Form, Input, Select  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
 
@@ -33,7 +33,21 @@ const ScaleEditUI = ({
           <Input placeholder="请输入ass字幕的后缀" onChange={handleSuffixChange}/>
         </Form.Item>
         <Form.Item id='input_target' label="修改目标">
-          <Input placeholder="请输入修改目标：yes or no" onChange={handleTargetChange}/>
+          <Select
+            defaultValue={{ value: 'yes', label: 'yes' }}
+            style={{ width: 120 }}
+            onChange={handleTargetChange}
+            options={[
+              {
+                value: 'yes',
+                label: 'yes',
+              },
+              {
+                value: 'no',
+                label: 'no',
+              },
+            ]}
+          />
         </Form.Item>
         <Form.Item>
           <Button 

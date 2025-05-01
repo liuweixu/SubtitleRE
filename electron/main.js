@@ -1,15 +1,14 @@
-// const { app, BrowserWindow } = require('electron')
 import { app, BrowserWindow } from 'electron'
-// const path = require('path')
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { ipcMain } from 'electron'
 import fs from 'fs'
-import { exec } from 'child_process'
 import { mkdir } from 'fs/promises'
+import SrtAssWithAlass from './srtassWithAlass.js'
 import ScaledBorderAndShadowProcess from './scaledProcessing.js'  // 必须添加.js，否则会报错
 import FontNameProcess from './fontNameProcess.js'
 import StyleInformationProcess from './styleInformationProcess.js'
+import SrtAssConvert from './srtassConvert.js'
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)) // 必须添加，否则界面就空白
@@ -26,10 +25,10 @@ function createWindow() {
   })
 
   // if (app.isPackaged) {
-    // win.loadFile(path.join(__dirname, '../dist/index.html'))
-  // } else {
-    win.loadURL('http://localhost:5173')
-    win.webContents.openDevTools()
+    win.loadFile(path.join(__dirname, '../dist/index.html'))
+  // // } else {
+    // win.loadURL('http://localhost:5173')
+    // win.webContents.openDevTools()
   // }
 }
 
@@ -67,9 +66,6 @@ ipcMain.handle('align_processing', async(event, inputAlign) => {
     const input1 = inputAlign[2]
     const input2 = inputAlign[3]
     const output = inputAlign[4]
-    // const { exec } = require('child_process')
-    // const { mkdir } = require('fs').promises
-    // const path = require('path')
     
     // // 确保输出目录存在
     try {
@@ -79,48 +75,8 @@ ipcMain.handle('align_processing', async(event, inputAlign) => {
         throw err;
       }
     }
-    const srtpath = path.join(input1, srtfile)
-    const asspath = path.join(input2, assfile)
-    return new Promise((resolve, reject) => {
-      // 处理ASS转SRT
-      if (asspath.endsWith('.ass')) {
-        const tempSrtFile = path.join(output, 'temp.srt')
-        exec(`ffmpeg -i "${asspath}" "${tempSrtFile}"`, (error) => {
-          if (error) {
-            reject(error)
-            return
-          }
-          // 调用alass进行对齐
-          const outputFile = path.join(output, srtfile);
-          exec(`alass "${tempSrtFile}" "${srtpath}" "${outputFile}"`, (error) => {
-            // 删除临时SRT文件
-            fs.unlink(tempSrtFile, () => {})
-            if (error) {
-              // 返回失败文件信息
-              resolve({
-                success: false,
-                error: error.message
-              })
-            } else {
-              resolve({
-                success: true,
-                file: srtfile
-              })
-            }
-          })
-        })
-      } else {
-        // 直接调用alass对齐
-        const outputFile = path.join(output, srtfile);
-        exec(`alass "${asspath}" "${srtpath}" "${outputFile}"`, (error) => {
-          if (error) {
-            reject(error)
-          } else {
-            resolve()
-          }
-        })
-      }
-    })
+    //异步调用alass命令程序
+    return await SrtAssWithAlass(srtfile, assfile, input1, input2, output)
   } catch (error) {
     console.error('处理失败:', error)
     throw error
@@ -194,6 +150,45 @@ ipcMain.handle('styleinformation_processing', async(event, inputdata) => {
 
     return new Promise((resolve, reject) => {
       StyleInformationProcess(input_dir, file, stylename, styleinformation, (error, result) => {
+        if (error) {
+          reject({
+            success: false,
+            error: error.message
+          })
+        } else {
+          resolve({
+            success: true,
+            file: result
+          })
+        }
+      })
+    })
+  }
+  catch (error) {
+    console.error('处理失败:', error)
+    throw error
+  }
+})
+
+
+ipcMain.handle('srtassconvert_processing', async(event, inputdata) => {
+  try {
+    const input = inputdata[0]
+    const file = inputdata[1]
+    const output = inputdata[2]
+    const style = inputdata[3]
+    const basename = inputdata[4]
+    
+    try {
+      await mkdir(output, { recursive: true });
+    } catch (err) {
+      if (err.code !== 'EEXIST') {
+        throw err;
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      SrtAssConvert(input, file, output, style, basename, (error, result) => {
         if (error) {
           reject({
             success: false,

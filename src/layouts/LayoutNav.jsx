@@ -10,10 +10,13 @@ import SRTAndASSAlign from '../components/SRTAndASSAlign'
 import ScaleEdit from '../components/ASSProcess/ScaledEdit'
 import ASSFontNameEdit from '../components/ASSProcess/ASSFontNameEdit';
 import ASS_StyleEdit from '../components/ASSProcess/ASS_StyleEdit';
+import SRTASSConvert from '../components/SRTASSConvert';
 // 定义各个内容组件
 // 这些内容涉及到需要操作的部分
 const MKVASSExrtactorLayout = () => <div>正在处理中....</div>;
-const SRTASSConventorLayout = () => <div>正在处理中....</div>;
+const SRTASSConvertLayout = () => (
+  <SRTASSConvert />
+);
 const AlignProcessLayout = () => (
   <SRTAndASSAlign />
 );
@@ -56,7 +59,7 @@ const App = () => {
       key: '3',
       icon: <CodepenCircleOutlined />,
       label: 'SRT转为ASS',
-      content: <SRTASSConventorLayout />
+      content: <SRTASSConvertLayout />
     },
     {
       key: '4',

@@ -8,15 +8,17 @@
   - 修改ScaledBorderAndShadow（涉及到字幕是否加粗和描边）
   - 修改目标样式对应的字体名称
   - 修改目标样式对应的样式信息
+- 对SRT转换为相应的ASS字幕，并且可以自定义样式
 ### 待开发的功能
 - 从MKV视频或ASS字幕中提取相应的中文字幕或日语字幕
-- 对SRT转换为相应的ASS字幕，并且可以自定义样式
+
 
 ## 技术栈
 - React
   - 脚手架：React-Vite 版本：18.0.0
 - Electron
 - JavaScript
+- Node.js
 - TailwindCSS
 - Ant Design
   - 主要使用的组件库
@@ -78,7 +80,7 @@ npm run electorn:build
 - 打包时，需要注意package.json文件中的build字段中的file等字段是否把需要打包的文件都包含进去，比如dist和electron文件夹下的所有文件等。
 
 ## 感受
-该桌面软件是我心血来潮，对React和Electron突然感兴趣，趁着五一假期有空的时候，就开始了学习和开发，但是因为开发时间很仓促（不到两天），所以目前就开发了2个主要功能，其他2个功能并没有开发完成，所以该软件并不太成熟，可能存在一些bug，如果大家发现了bug，可以在issue中或者通过邮件wei_xu_liu@163.com提出，我会尽快修复。
+该桌面软件是我心血来潮，对React和Electron突然感兴趣，趁着五一假期有空的时候，就开始了学习和开发，但是因为开发时间很仓促（不到两天），所以目前就开发了3个主要功能，还剩1个功能并没有开发完成，而且界面并不是很完善，所以该软件并不太成熟，可能存在一些bug，如果大家发现了bug，可以在issue中或者通过邮件wei_xu_liu@163.com提出，我会尽快修复。
 
 ## 感谢
 - [Ant Design组件库](https://ant-design.antgroup.com/index-cn)

@@ -15,8 +15,9 @@ const ScaleEdit = () => {
     const handleSuffixChange = (e) => {
         setSuffix(e.target.value);
     }
-    const handleTargetChange = (e) => {
-        setTarget(e.target.value);
+    //关键
+    const handleTargetChange = (value) => {
+        setTarget(value);
     }
 
     // 日志记录 
