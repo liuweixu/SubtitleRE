@@ -1,0 +1,22 @@
+/* ButtonStyles.css */
+.gradient-button.ant-btn-primary:not([disabled]):not(.ant-btn-dangerous) {
+    position: relative;
+  }
+  
+.gradient-button.ant-btn-primary:not([disabled]):not(.ant-btn-dangerous) > span {
+position: relative;
+}
+
+.gradient-button.ant-btn-primary:not([disabled]):not(.ant-btn-dangerous)::before {
+content: '';
+background: linear-gradient(135deg, #6253e1, #04befe);
+position: absolute;
+inset: -1px;
+opacity: 1;
+transition: all 0.3s;
+border-radius: inherit;
+}
+
+.gradient-button.ant-btn-primary:not([disabled]):not(.ant-btn-dangerous):hover::before {
+opacity: 0;
+}
