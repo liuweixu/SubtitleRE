@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Form, Input, Select  } from 'antd';
+import { Button, Card, Form, Input, Radio  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
 
@@ -17,9 +17,10 @@ const MKVExtractorUI = ({
   onCommit,
   onClear,
   inputText,
-  defaultlanguage
+  language
 }) => {
   const formLayout = 'horizontal'
+  const OptionsLanguage = ['CHS', 'JP'];
   return (
     <div>
     <Card hoverable style={cardStyle} styles={{ body: { padding: 10, overflow: 'hidden' } }} title="MKV字幕提取">
@@ -38,21 +39,7 @@ const MKVExtractorUI = ({
           <Input placeholder="请选择字幕轨道" onChange={handleTrackChange}/>
         </Form.Item>
         <Form.Item id='language' label="提取语言">
-          <Select
-            defaultValue={{ value: defaultlanguage, label: defaultlanguage }}
-            style={{ width: 120 }}
-            onChange={handleLanguageChange}
-            options={[
-              {
-                value: 'CHS',
-                label: 'CHS',
-              },
-              {
-                value: 'JP',
-                label: 'JP',
-              },
-            ]}
-          />
+          <Radio.Group options={OptionsLanguage} onChange={handleLanguageChange} value={language} />
         </Form.Item>
         <Form.Item>
           <Button 

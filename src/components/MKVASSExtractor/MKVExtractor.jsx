@@ -21,9 +21,9 @@ const MKVExtractor = () => {
         setTrack(e.target.value);
     }
     //关键
-    const handleLanguageChange = (value) => {
-        setLanguage(value)
-    }
+    const handleLanguageChange = ({ target: { value } }) => {
+        setLanguage(value);
+    };
 
     // 日志记录 
     let resultLogText = '' // 暂时存储结果文本
@@ -59,7 +59,7 @@ const MKVExtractor = () => {
         onCommit={() => click(input, output, track, language)}
         onClear={() => setInputText('')}
         inputText={inputText}
-        defaultlanguage={defaultlanguage}
+        language={language}
     />
   )
 };

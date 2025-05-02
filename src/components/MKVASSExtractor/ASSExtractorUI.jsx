@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Form, Input, Select  } from 'antd';
+import { Button, Card, Form, Input, Radio  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
 
@@ -8,7 +8,9 @@ const { TextArea } = Input;
 const cardStyle = {
   width: '95%',
   margin: '0 auto'
-};
+}
+
+
 const ASSExtractorUI = ({
   handleInputChange,
   handleOutputChange,
@@ -17,9 +19,11 @@ const ASSExtractorUI = ({
   onCommit,
   onClear,
   inputText,
-  defaultlanguage
+  language
 }) => {
   const formLayout = 'horizontal'
+  // 语言单选
+  const OptionsLanguage = ['CHS', 'JP'];
   return (
     <div>
     <Card hoverable style={cardStyle} styles={{ body: { padding: 10, overflow: 'hidden' } }} title="ASS字幕提取">
@@ -38,21 +42,7 @@ const ASSExtractorUI = ({
           <Input placeholder="请选择提取字幕的后缀" onChange={handleSuffixChange}/>
         </Form.Item>
         <Form.Item id='language' label="提取语言">
-          <Select
-            defaultValue={{ value: defaultlanguage, label: defaultlanguage }}
-            style={{ width: 120 }}
-            onChange={handleLanguageChange}
-            options={[
-              {
-                value: 'CHS',
-                label: 'CHS',
-              },
-              {
-                value: 'JP',
-                label: 'JP',
-              },
-            ]}
-          />
+          <Radio.Group options={OptionsLanguage} onChange={handleLanguageChange} value={language} />
         </Form.Item>
         <Form.Item>
           <Button 
