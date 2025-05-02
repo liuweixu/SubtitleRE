@@ -36,6 +36,9 @@ const App = () => {
   // 日志记录
   const [inputText, setInputText] = useState('');
   let resultLogText = '' // 暂时存储结果文本
+
+  // 进度条
+  const [progress_percent, setProgresspercent] = useState(0.00);
   // 点击按钮后触发
   async function click(input1, input2, output, srtsuffix, asssuffix) {
     try {
@@ -71,6 +74,8 @@ const App = () => {
             alignfails.push(`${pair[0]} 对齐失败: ${logtext.error}\n`)
           }
           setInputText(resultLogText)
+          // 更新进度条
+          setProgresspercent(((pairs.indexOf(pair) + 1) / pairs.length * 100).toFixed(2))
         }
         if (alignfails.length > 0) {
           resultLogText += `\n\n以下文件对齐失败：\n${alignfails.join('\n')}`
@@ -93,6 +98,7 @@ const App = () => {
       inputText={inputText}
       onCommit={() => click(input1, input2, output, srtsuffix, asssuffix)}
       onClear={() => setInputText('')}
+      progress_percent={progress_percent}
     />
   );
 };

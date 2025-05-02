@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Form, Input, Radio  } from 'antd';
+import { Button, Card, Form, Input, Radio, Progress  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
 
@@ -17,10 +17,11 @@ const MKVExtractorUI = ({
   onCommit,
   onClear,
   inputText,
-  language
+  language,
+  progresspercent
 }) => {
   const formLayout = 'horizontal'
-  const OptionsLanguage = ['CHS', 'JP'];
+  const OptionsLanguage = ['CHS', 'JP']
   return (
     <div>
     <Card hoverable style={cardStyle} styles={{ body: { padding: 10, overflow: 'hidden' } }} title="MKV字幕提取">
@@ -63,6 +64,7 @@ const MKVExtractorUI = ({
           </Button>
         </Form.Item>
         <Form.Item>
+          <Progress percent={progresspercent} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
           <TextArea rows={4} value={inputText}/>
         </Form.Item>
         

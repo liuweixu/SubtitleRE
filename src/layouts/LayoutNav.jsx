@@ -97,7 +97,7 @@ const App = () => {
           // theme="dark"
           theme={theme}
           mode="inline"
-          defaultSelectedKeys={['3']}
+          defaultSelectedKeys={['1']}
           selectedKeys={[selectedKey]}
           onClick={({ key }) => setSelectedKey(key)}
           items={items}

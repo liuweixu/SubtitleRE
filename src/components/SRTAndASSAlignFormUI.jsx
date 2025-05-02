@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Radio } from 'antd';
+import { Button, Form, Input, Radio, Progress } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../Button/ButtonGradient.css';
 
@@ -16,7 +16,8 @@ const FormUI = ({
   handleAsssuffixChange,
   inputText,
   onCommit,
-  onClear
+  onClear,
+  progress_percent
 }) => {
   return (
     <Form
@@ -76,6 +77,7 @@ const FormUI = ({
         </Button>
       </Form.Item>
       <Form.Item>
+        <Progress percent={progress_percent} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
         <TextArea rows={20} value={inputText}/>
       </Form.Item>
       

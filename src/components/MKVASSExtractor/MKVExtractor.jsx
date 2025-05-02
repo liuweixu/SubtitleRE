@@ -27,6 +27,10 @@ const MKVExtractor = () => {
 
     // 日志记录 
     let resultLogText = '' // 暂时存储结果文本
+
+    // 进度计算
+    const [progresspercent, setProgresspercent] = useState(0.00) // 进度条百分比
+
     // 点击按钮后触发
     async function click(input, output, track, language) {
         const { ipcRenderer } = window.require('electron')
@@ -40,6 +44,9 @@ const MKVExtractor = () => {
             const inputdata = [input, file, track, output, language, basename]
             const logtext = await ipcRenderer.invoke('mkvextractor_processing', inputdata)
             
+            // 进度计算
+            setProgresspercent(((mkvFilesInput.indexOf(file) + 1) / mkvFilesInput.length * 100).toFixed(2))
+
             if(logtext.success){
                 resultLogText += '处理成功，文件名为：' + logtext.file + '\n'
             }
@@ -60,6 +67,7 @@ const MKVExtractor = () => {
         onClear={() => setInputText('')}
         inputText={inputText}
         language={language}
+        progresspercent={progresspercent}
     />
   )
 };
