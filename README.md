@@ -11,9 +11,8 @@
 - 对SRT转换为相应的ASS字幕，并且可以自定义样式
 - 从MKV视频或ASS字幕中提取相应的中文字幕或日语字幕
   - 从ASS双语字幕中提取中文或日语字幕
-### 待开发的功能
-- 从MKV视频或ASS字幕中提取相应的中文字幕或日语字幕
   - 从MKV视频中提取中文或日语字幕
+  
 
 
 ## 技术栈
@@ -63,20 +62,21 @@ npm install cross-env --save-dev
 npm install antd
 # 安装 TailwindCSS
 npm install -D tailwindcss postcss autoprefixer
+# 安装wait-on
+npm install wait-on npm-run-all --save-dev
 ```
 以上是本项目所需要的依赖，具体的依赖版本可以查看package.json文件。
 
 ### 运行
 ```bash
 # 开发
-# 启动 React 开发服务器
-npm run dev
-# 启动 Electron 开发服务器
-npm run electron
+# 启动 React 开发服务器 和 Electron 主进程
+npm run dev:electron
 
 # 打包
 npm run electorn:build
 ```
+上述启动命令是在package.json文件中配置的，具体见scripts字段。
 目前package.json中只配置win的打包命令，如果需要，可以自行添加mac和linux的打包命令。
 打包后，在release文件夹中可以找到打包好的exe文件，运行时可以直接安装和使用，也可以不用安装，只需要点击其中一个文件夹，里面也有exe文件，直接运行即可。
 
@@ -88,7 +88,7 @@ npm run electorn:build
 - 打包时，需要注意package.json文件中的build字段中的file等字段是否把需要打包的文件都包含进去，比如dist和electron文件夹下的所有文件等。
 
 ## 感受
-该桌面软件是我心血来潮，对React和Electron突然感兴趣，趁着五一假期有空的时候，就开始了学习和开发，但是因为开发时间很仓促（不到两天），所以目前就开发了3个主要功能，还剩1个功能并没有开发完成，而且界面并不是很完善，所以该软件并不太成熟，可能存在一些bug，如果大家发现了bug，可以在issue中或者通过邮件wei_xu_liu@163.com提出，我会尽快修复。
+该桌面软件是我心血来潮，对React和Electron突然感兴趣，趁着五一假期有空的时候，就开始了学习和开发，但是因为开发时间很仓促（不到两三天），该软件并不太成熟，界面并不是很完善，可能存在一些bug，如果大家发现了bug，可以在issue中或者通过邮件wei_xu_liu@163.com提出，我会尽快修复。
 
 ## 感谢
 - [Ant Design组件库](https://ant-design.antgroup.com/index-cn)

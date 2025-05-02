@@ -16,7 +16,8 @@ const MKVExtractorUI = ({
   handleLanguageChange,
   onCommit,
   onClear,
-  inputText
+  inputText,
+  defaultlanguage
 }) => {
   const formLayout = 'horizontal'
   return (
@@ -38,7 +39,7 @@ const MKVExtractorUI = ({
         </Form.Item>
         <Form.Item id='language' label="提取语言">
           <Select
-            defaultValue={{ value: 'JP', label: 'JP' }}
+            defaultValue={{ value: defaultlanguage, label: defaultlanguage }}
             style={{ width: 120 }}
             onChange={handleLanguageChange}
             options={[

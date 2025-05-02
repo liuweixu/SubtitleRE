@@ -3,7 +3,7 @@ import path from 'path'
 import { exec } from 'child_process'
 
 
-function SrtAssWithAlass(srtfile, assfile, input1, input2, output, callback) {
+function SrtAssWithAlass(srtfile, assfile, input1, input2, output) {
     const srtpath = path.join(input1, srtfile)
     const asspath = path.join(input2, assfile)
     return new Promise((resolve, reject) => {

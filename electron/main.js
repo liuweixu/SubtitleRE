@@ -10,6 +10,7 @@ import FontNameProcess from './fontNameProcess.js'
 import StyleInformationProcess from './styleInformationProcess.js'
 import SrtAssConvert from './srtassConvert.js'
 import ASSExtractor from './assExtractor.js'
+import MKVExtractor from './mkvExtractor.js'
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)) // 必须添加，否则界面就空白
@@ -246,4 +247,44 @@ ipcMain.handle('assextractor_processing', async(event, inputdata) => {
     console.error('处理失败:', error)
     throw error
   }
+})
+
+ipcMain.handle('mkvextractor_processing', async(event, inputdata) => {
+  try {
+    //input, file, track, output, language, basename
+    const input = inputdata[0]
+    const file = inputdata[1]
+    const track = inputdata[2]
+    const output = inputdata[3]
+    const language = inputdata[4]
+    const basename = inputdata[5]
+    
+    try {
+      await mkdir(output, { recursive: true });
+    } catch (err) {
+      if (err.code !== 'EEXIST') {
+        throw err;
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      MKVExtractor(input, file, track, output, language, basename, (error, result) => {
+        if (error) {
+          reject({
+            success: false,
+            error: error.message
+          })
+        } else {
+          resolve({
+            success: true,
+            file: result
+          })
+        }
+      })
+    })
+  }
+  catch (error) {
+    console.error('处理失败:', error)
+    throw error
+  }  
 })
