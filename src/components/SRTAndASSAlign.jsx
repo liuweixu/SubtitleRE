@@ -41,9 +41,9 @@ const App = () => {
     try {
         const { ipcRenderer } = window.require('electron')
         const fileInput1 = await ipcRenderer.invoke('read-directory', input1)
-        const srtFilesInput1 =  fileInput1.filter(file => file.toLowerCase().endsWith(srtsuffix))
+        const srtFilesInput1 =  fileInput1.filter(file => file.endsWith(srtsuffix))
         const fileInput2 = await ipcRenderer.invoke('read-directory', input2)
-        const srtFilesInput2 =  fileInput2.filter(file => file.toLowerCase().endsWith(asssuffix))
+        const srtFilesInput2 =  fileInput2.filter(file => file.endsWith(asssuffix))
         
         // 获取基础文件名
         const getBaseName = (filename) => filename.split('.')[0];

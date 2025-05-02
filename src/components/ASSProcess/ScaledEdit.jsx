@@ -26,7 +26,7 @@ const ScaleEdit = () => {
     async function click(input_dir, suffix, target) {
         const { ipcRenderer } = window.require('electron')
         const fileinput = await ipcRenderer.invoke('read-directory', input_dir)
-        const assFilesInput =  fileinput.filter(file => file.toLowerCase().endsWith(suffix))
+        const assFilesInput =  fileinput.filter(file => file.endsWith(suffix))
 
         for (const file of assFilesInput) {
             const inputdata = [input_dir, file, target]
@@ -37,8 +37,8 @@ const ScaleEdit = () => {
             else{
                 resultLogText += '处理失败：' + logtext.error + '\n'
             }
+            setInputText(resultLogText)
         }
-        setInputText(resultLogText)
     }
 
     return (

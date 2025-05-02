@@ -38,7 +38,7 @@ const SRTASSConvert = () => {
     try {
       const { ipcRenderer } = window.require('electron')
       const fileInput = await ipcRenderer.invoke('read-directory', input)
-      const srtFilesInput =  fileInput.filter(file => file.toLowerCase().endsWith(suffix))
+      const srtFilesInput =  fileInput.filter(file => file.endsWith(suffix))
 
       // 获取基础文件名
       const getBaseName = (filename) => filename.split('.')[0];

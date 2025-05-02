@@ -11,9 +11,11 @@ import ScaleEdit from '../components/ASSProcess/ScaledEdit'
 import ASSFontNameEdit from '../components/ASSProcess/ASSFontNameEdit';
 import ASS_StyleEdit from '../components/ASSProcess/ASS_StyleEdit';
 import SRTASSConvert from '../components/SRTASSConvert';
+import ASSExtractor from '../components/MKVASSExtractor/ASSExtractor';
+import MKVExtractor from '../components/MKVASSExtractor/MKVExtractor';
 // 定义各个内容组件
 // 这些内容涉及到需要操作的部分
-const MKVASSExrtactorLayout = () => <div>正在处理中....</div>;
+
 const SRTASSConvertLayout = () => (
   <SRTASSConvert />
 );
@@ -29,6 +31,13 @@ const ASSProcessASSFontNameEditLayout = () => (
 const ASSProcessASS_StyleEditLayout = () => (
   <ASS_StyleEdit />
 );
+
+const MKVExrtactorLayout = () => (
+  <MKVExtractor/>
+)
+const ASSExtractorLayout = () => (
+  <ASSExtractor/>
+)
 
 const { Content, Footer, Sider } = Layout;
 
@@ -65,7 +74,10 @@ const App = () => {
       key: '4',
       icon: <CodepenOutlined />,
       label: 'MKV/ASS提取',
-      content: <MKVASSExrtactorLayout />
+      children: [
+        {key: '41', label: 'MKV字幕提取', content: <MKVExrtactorLayout/>}, 
+        {key: '42', label: 'ASS字幕提取', content: <ASSExtractorLayout/>}, 
+      ]
     }
   ];
   
