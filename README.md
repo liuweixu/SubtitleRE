@@ -104,6 +104,9 @@ npm run electorn:build
 ## 感谢
 - [Ant Design组件库](https://ant-design.antgroup.com/index-cn) 阿里巴巴开源的React组件库
 - [Semi Design组件库](https://semi.design/zh-CN/) 字节抖音开源的React组件库
+- [Electron官方教程](https://www.electronjs.org/zh/docs/latest/tutorial/tutorial-prerequisites)
+- [React中文文档](https://react.docschina.org/)
+- [Vite官方文档](https://cn.vite.dev/guide/#scaffolding-your-first-vite-project) 涉及到react-vite的一些用法
 - [黑马React笔记](https://blog.csdn.net/2301_80182418/article/details/145483587)
 - [create-react-app迁移到vite的教程](https://segmentfault.com/a/1190000044980287)
 - [DeepSeek](https://chat.deepseek.com/) 感谢其解决我在React和Electron上碰到的问题。
