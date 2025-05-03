@@ -1,5 +1,5 @@
 # 基于React和Electron的字幕处理桌面工具
-因心血来潮，在五一假期期间的一两天中，研究和学习React和Electron，在基于Python和PySide6开发的工具[SubtitleCoder](https://github.com/liuweixu/SubtitleCoder)的基础上，使用React和Electron进行重构为可以安装的桌面应用软件。
+因心血来潮，在五一假期期间的几天中，趁着空闲期间研究和学习React和Electron，在基于Python和PySide6开发的工具[SubtitleCoder](https://github.com/liuweixu/SubtitleCoder)的基础上，使用React和Electron进行重构为可以安装的桌面应用软件。
 
 ## 功能
 ### 已开发的功能
@@ -12,7 +12,7 @@
 - 从MKV视频或ASS字幕中提取相应的中文字幕或日语字幕
   - 从ASS双语字幕中提取中文或日语字幕
   - 从MKV视频中提取中文或日语字幕
-- 实现Semi Design和Ant Design组件库主题的切换，并且代码已重构，方便后续新增新的组件库主题。
+- 实现Semi Design和Ant Design组件库主题的切换，并且代码已重构，可以能够使用暗黑主题，方便后续新增新的组件库主题。
   
 
 ## 技术栈
@@ -87,6 +87,13 @@ npm run electorn:build
 - 在Electron中，使用Node.js的API写程序，需要使用import语句导入，而不是require语句导入。
 - 对本地文件进行读写处理、运行本地命令等操作时，需要在Electron中进行编写，然后将处理结果通过ipcMain和ipcRenderer方式与React进行通信（也就是传递数据）即可。
 - 打包时，需要注意package.json文件中的build字段中的file等字段是否把需要打包的文件都包含进去，比如dist和electron文件夹下的所有文件等。
+
+### 界面
+![](public/image1.png)
+![](public/image2.png)
+![](public/image3.png)
+![](public/image4.png)
+
 
 ## 详细教程与问题解决
 有空就补上......
