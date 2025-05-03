@@ -12,8 +12,8 @@
 - 从MKV视频或ASS字幕中提取相应的中文字幕或日语字幕
   - 从ASS双语字幕中提取中文或日语字幕
   - 从MKV视频中提取中文或日语字幕
+- 实现Semi Design和Ant Design组件库主题的切换，并且代码已重构，方便后续新增新的组件库主题。
   
-
 
 ## 技术栈
 - React
@@ -22,7 +22,7 @@
 - JavaScript
 - Node.js
 - TailwindCSS
-- Ant Design
+- Ant Design、Semi Design
   - 主要使用的组件库
 
 ## 安装和使用说明
@@ -41,7 +41,8 @@
 - alass
 - ffmpeg
 - MKVToolNix
-以上几个工具都是本项目所需要的，需要在电脑上安装，并且要加入环境变量中。
+- [Visual Studio Build Tools](https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/)
+以上几个工具都是本项目所需要的，需要在电脑上安装，并且要加入环境变量中，最后一个因为Electron打包时，需要用到Visual Studio的一些工具。
 
 ### 安装依赖
 ```bash
@@ -87,11 +88,18 @@ npm run electorn:build
 - 对本地文件进行读写处理、运行本地命令等操作时，需要在Electron中进行编写，然后将处理结果通过ipcMain和ipcRenderer方式与React进行通信（也就是传递数据）即可。
 - 打包时，需要注意package.json文件中的build字段中的file等字段是否把需要打包的文件都包含进去，比如dist和electron文件夹下的所有文件等。
 
+## 详细教程与问题解决
+有空就补上......
+
 ## 感受
-该桌面软件是我心血来潮，对React和Electron突然感兴趣，趁着五一假期有空的时候，就开始了学习和开发，但是因为开发时间很仓促（不到两三天），该软件并不太成熟，界面并不是很完善，可能存在一些bug，如果大家发现了bug，可以在issue中或者通过邮件wei_xu_liu@163.com提出，我会尽快修复。
+该桌面软件是我心血来潮，对React和Electron突然感兴趣，趁着五一假期有空的时候，就开始了学习和开发，但是因为开发时间很仓促（不到三四天），该软件并不太成熟，界面并不是很完善，可能存在一些bug，如果大家发现了bug，可以在issue中或者通过邮件wei_xu_liu@163.com提出，我会尽快修复。
 
 ## 感谢
-- [Ant Design组件库](https://ant-design.antgroup.com/index-cn)
+- [Ant Design组件库](https://ant-design.antgroup.com/index-cn) 阿里巴巴开源的React组件库
+- [Semi Design组件库](https://semi.design/zh-CN/) 字节抖音开源的React组件库
 - [黑马React视频教程](https://www.bilibili.com/video/BV1ZB4y1Z7o8?spm_id_from=333.788.videopod.episodes&vd_source=601da5164f2780fc668c82ddd0d54bcf)
 - [黑马React笔记](https://blog.csdn.net/2301_80182418/article/details/145483587)
 - [create-react-app迁移到vite的教程](https://segmentfault.com/a/1190000044980287)
+- [DeepSeek](https://chat.deepseek.com/) 感谢其解决我在React和Electron上碰到的问题。
+- [Trae](https://www.trae.ai/) 主要开发工具
+- [VScode](https://code.visualstudio.com/) 主要开发工具

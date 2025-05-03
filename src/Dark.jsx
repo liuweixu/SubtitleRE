@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@douyinfe/semi-ui';
 function Demo() {
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const switchMode = () => {
         const body = document.body;
         if (body.hasAttribute('theme-mode')) {
             body.removeAttribute('theme-mode');
+            setIsDarkMode(false);
         } else {
             body.setAttribute('theme-mode', 'dark');
+            setIsDarkMode(true);
         }
     };
 
@@ -14,7 +17,7 @@ function Demo() {
         <Button
             onClick={switchMode}
         >
-            Switch Mode
+            {isDarkMode ? '白天模式' : '暗黑模式'}
         </Button>
     );
 }

@@ -3,10 +3,22 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import AppSemi from './AppDY.jsx'
 import AppAntd from './App.jsx'
+import { useState } from'react'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    {/* <AppSemi /> */}
-    <AppAntd />
-  </StrictMode>
-)
+const { ipcRenderer } = window.require('electron');
+
+function RootComponent() {
+  const [theme, setTheme] = useState('semi-ui');
+
+  ipcRenderer.on('switch-theme', (event, themeName) => {
+    setTheme(themeName);
+  });
+
+  return (
+      <StrictMode>
+        {theme === 'semi-ui' ? <AppSemi /> : <AppAntd />}
+      </StrictMode>
+  );
+}
+
+createRoot(document.getElementById('root')).render(<RootComponent />);

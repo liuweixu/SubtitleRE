@@ -33,7 +33,7 @@ const SRTASSConvert = () => {
         console.error('读取目录出错:', err)
     }
   }
-  return {
+  return { 
     inputText,
     click,
     onClear: () => setInputText('')

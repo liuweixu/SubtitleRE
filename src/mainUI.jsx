@@ -3,11 +3,17 @@ import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar } from '@douyinfe/sem
 import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 import { IconForm, IconBadge, IconBanner, IconAvatar, IconTree, IconTabs } from '@douyinfe/semi-icons-lab';
 import SRTandASSAlignUI from './components_semiui/SRTandASSAlignUI';
+import SRTASSConvertUI from './components_semiui/SRTASSConvertUI';
+import ASSExtractorUI from './components_semiui/MKVASSExtractor/ASSExtractorUI';
+import MKVExtractorUI from './components_semiui/MKVASSExtractor/MKVExtractorUI';
+import ScaleEditUI from './components_semiui/ASSProcess/ScaledEditUI';
+import AssFontNameEditUI from './components_semiui/ASSProcess/ASSFontNameEditUI';
+import Ass_StyleEditUI from './components_semiui/ASSProcess/ASS_StyleEditUI';
 
 const mainUI = () => {
     const { Header, Footer, Sider, Content } = Layout;
     const [openKeys, setOpenKeys] = useState(['align', 'convert']);
-    const [selectedKeys, setSelectedKeys] = useState(['SRT与ASS对齐']);
+    const [selectedKeys, setSelectedKeys] = useState(['align']);
     const [isCollapsed, setIsCollapsed] = useState(true);
 
     const onSelect = data => {
@@ -30,19 +36,19 @@ const mainUI = () => {
             text: 'ASS处理',
             icon: <IconForm />,
             items: [
-                {itemKey: 'ass-process1', text: 'ScaledBorderAndShadow', content: <div>SRT与ASS对齐</div>},
-                {itemKey: 'ass-process2', text: 'ASS字体名称', content: <div>SRT与ASS对齐</div>},
-                {itemKey: 'ass-process3', text: 'ASS样式信息', content: <div>SRT与ASS对齐</div>},
+                {itemKey: 'ass-process1', text: 'ScaledBorderAndShadow', content: <ScaleEditUI />},
+                {itemKey: 'ass-process2', text: 'ASS字体名称', content: <AssFontNameEditUI />},
+                {itemKey: 'ass-process3', text: 'ASS样式信息', content: <Ass_StyleEditUI />},
             ]
         },
-        { itemKey: 'convert', text: 'SRT转为ASS', icon: <IconBanner />, content: <div>SRT与ASS对齐</div> },
+        { itemKey: 'convert', text: 'SRT转为ASS', icon: <IconBanner />, content: <SRTASSConvertUI />  },
         {
             text: 'MKV/ASS提取',
             icon: <IconTree />,
             itemKey: 'extract',
             items: [
-                {itemKey: 'extract1', text: 'MKV字幕提取', content: <div>SRT与ASS对齐</div>},
-                {itemKey: 'extract2', text: 'ASS字幕提取', content: <div>SRT与ASS对齐</div>},
+                {itemKey: 'extract1', text: 'MKV字幕提取', content: <MKVExtractorUI />},
+                {itemKey: 'extract2', text: 'ASS字幕提取', content: <ASSExtractorUI />},
             ],
         },
     ], []);
@@ -53,7 +59,7 @@ const mainUI = () => {
                     isCollapsed={isCollapsed}
                     openKeys={openKeys}
                     selectedKeys={selectedKeys}
-                    bodyStyle={{ height: 'calc(90vh - 120px)' }}
+                    bodyStyle={{ height: 'calc(80vh - 120px)' }}
                     items={items}
                     header={{
                         logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,

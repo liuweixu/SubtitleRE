@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { ipcMain } from 'electron'
@@ -23,7 +23,9 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
+    // autoHideMenuBar: true
+    frame: true
   })
 
   if (app.isPackaged) {
@@ -32,6 +34,55 @@ function createWindow() {
     win.loadURL('http://localhost:5173')
     win.webContents.openDevTools()
   }
+
+  //定义菜单模板
+  const template = [
+    {
+      label: '文件',
+      submenu: [
+        {
+          label: '退出',
+          role: 'quit'  // 直接使用内置角色（无需手动实现退出逻辑）
+        }
+      ]
+    },
+    {
+      label: '编辑',
+      submenu: [
+        { label: '撤销', role: 'undo' },  // 使用内置角色
+        { label: '重做', role: 'redo' },
+        { type: 'separator' },
+        { label: '剪切', role: 'cut' },
+        { label: '复制', role: 'copy' },
+        { label: '粘贴', role: 'paste' }
+      ]
+    },
+    {
+      label: '开发者',
+      submenu: [
+        {
+          label: '调试',
+          click: () => { win.webContents.openDevTools() }  // 打开开发者工具
+        }
+      ]
+    },
+    {
+      label: '主题切换',
+      submenu: [
+        {
+          label: 'Ant Design主题',
+          click: () => { win.webContents.send('switch-theme', 'ant-design') }
+        },
+        {
+          label: 'Semi UI主题',
+          click: () => { win.webContents.send('switch-theme', 'semi-ui') }
+        }
+      ]
+    }
+  ]
+  // 设置应用菜单
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
 }
 
 app.whenReady().then(() => {
