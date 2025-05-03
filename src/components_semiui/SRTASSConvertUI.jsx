@@ -29,7 +29,6 @@ const SRTASSConvertUI = () => {
   }
   return (
     <Form
-        // wrapperCol={{ span: 20 }}
         labelCol={{ span: 10 }}
         labelPosition='inset'
         labelAlign='right'
@@ -50,17 +49,17 @@ const SRTASSConvertUI = () => {
             <Button type="primary"
                     htmlType="submit" 
                     className="primary-button" 
-                    style={{marginRight: '30px'}}
+                    style={{marginRight: '30px', marginTop: '10px'}}
                     onClick={() => click(input, suffix, output, style)}
             >
                 确认
             </Button>
-            <Button htmlType="reset" className="primary-button" style={{marginRight: '30px'}}>
+            <Button htmlType="reset" className="primary-button" style={{marginRight: '30px', marginTop: '10px'}}>
                 重置
             </Button>
 
         </Row>
-            <TextArea rows={10} style={{marginTop: '30px', marginBottom: '30px'}} value={inputText}/>
+            <TextArea rows={10} style={{marginTop: '20px', marginBottom: '30px'}} value={inputText}/>
             <Button htmlType="reset" className="primary-button" onClick={onClear}>
                     清空
             </Button>

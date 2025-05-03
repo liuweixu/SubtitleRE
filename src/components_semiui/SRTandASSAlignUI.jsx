@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Row, TextArea } from '@douyinfe/semi-ui';
+import { Form, Button, Row, TextArea, Progress } from '@douyinfe/semi-ui';
 import '../styles/Button.scss'
 import SRTAndASSAlign from '../models/SRTAndASSAlign';
 
@@ -31,7 +31,12 @@ const SRTandASSAlignUI = () => {
     const handleAsssuffixChange = (value, e) => {
         setAsssuffix(value);
     }
-    return (
+    const strokeArr = [
+        { percent: 0, color: 'rgb(255, 238, 0)' },
+        { percent: 50, color: 'rgb(60, 255, 0)' },
+        { percent: 100, color: 'rgb(0, 217, 255)' },
+    ];
+    return (    
         <Form
             // wrapperCol={{ span: 20 }}
             labelCol={{ span: 10 }}
@@ -47,7 +52,6 @@ const SRTandASSAlignUI = () => {
             <Form.Input id='output' field='srtOuputDir' style={{ width: '95%' }} 
                         label='SRT输出目录' trigger='blur' 
                         placeholder='请输入对齐后日语SRT字幕所在的目录' onChange={handleOutputChange}/>
-            {/* <Form labelPosition='inset' labelAlign='right' layout='horizontal'> */}
             <Row>
             <Form.Input id='srtsuffix' field='srtsuffix' style={{ width: '40%' }} 
                         label='SRT字幕后缀' trigger='blur' placeholder='例如：.jp.srt' onChange={handleSrtsuffixChange}/>
@@ -68,7 +72,16 @@ const SRTandASSAlignUI = () => {
                 </Button>
 
             </Row>
-                <TextArea rows={10} style={{marginTop: '30px', marginBottom: '30px'}} value={inputText}/>
+                <Progress
+                    percent={progress_percent}
+                    stroke={strokeArr}
+                    strokeGradient={true}
+                    showInfo
+                    size="large"
+                    aria-label="file download speed"
+                    style={{marginTop: '15px'}}
+                />
+                <TextArea rows={10} style={{marginTop: '10px', marginBottom: '30px'}} value={inputText}/>
                 <Button htmlType="reset" className="primary-button" onClick={onClear}>
                         清空
                 </Button>

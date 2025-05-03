@@ -9,9 +9,10 @@ import MKVExtractorUI from './components_semiui/MKVASSExtractor/MKVExtractorUI';
 import ScaleEditUI from './components_semiui/ASSProcess/ScaledEditUI';
 import AssFontNameEditUI from './components_semiui/ASSProcess/ASSFontNameEditUI';
 import Ass_StyleEditUI from './components_semiui/ASSProcess/ASS_StyleEditUI';
+import Dark from './Dark';
 
 const mainUI = () => {
-    const { Header, Footer, Sider, Content } = Layout;
+    const { Header, Sider, Content } = Layout;
     const [openKeys, setOpenKeys] = useState(['align', 'convert']);
     const [selectedKeys, setSelectedKeys] = useState(['align']);
     const [isCollapsed, setIsCollapsed] = useState(true);
@@ -54,23 +55,45 @@ const mainUI = () => {
     ], []);
     return (
         <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
-            <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
-                <Nav
+                        <Header style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
+                <div>
+                    <Nav mode="horizontal" defaultSelectedKeys={['Home']}>
+                        <Nav.Header>
+                            <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />
+                        </Nav.Header>
+                        <span
+                            style={{
+                                color: 'var(--semi-color-text-2)',
+                            }}
+                        >
+                            <span
+                                style={{
+                                    marginRight: '24px',
+                                    color: 'var(--semi-color-text-0)',
+                                    fontWeight: '600',
+                                }}
+                            >
+                                <Dark />
+                            </span>
+                        </span>
+                    </Nav>
+                </div>
+            </Header>
+         <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
+             <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
+                 <Nav
                     isCollapsed={isCollapsed}
                     openKeys={openKeys}
                     selectedKeys={selectedKeys}
-                    bodyStyle={{ height: 'calc(80vh - 120px)' }}
+                    bodyStyle={{ height: '50%' }}
                     items={items}
-                    header={{
-                        logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
-                        text: 'SubtitleRE字幕处理'
-                    }}
                     footer={{
                         collapseButton: true
                     }}
                     onCollapseChange={onCollapseChange}
                     onOpenChange={onOpenChange}
                     onSelect={onSelect}
+                    style={{ maxWidth: 220, height: '95%' }}
                 />
             </Sider>
             <Layout>
@@ -86,8 +109,8 @@ const mainUI = () => {
                         style={{
                             borderRadius: '10px',
                             border: '1px solid var(--semi-color-border)',
-                            height: 'calc(100vh - 120px)',
-                            padding: '32px',
+                            padding: '24px',
+                            minHeight: 'calc(92vh - 100px)'
                         }}
                     >
                         {(() => {
@@ -105,17 +128,8 @@ const mainUI = () => {
                         })()}
                     </div>
                 </Content>
-                <Footer
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '20px',
-                        color: 'var(--semi-color-text-2)',
-                        backgroundColor: 'rgba(var(--semi-grey-0), 1)',
-                    }}
-                >
-                </Footer>
             </Layout>
+        </Layout>
         </Layout>
     );
 };

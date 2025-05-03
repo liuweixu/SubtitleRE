@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@douyinfe/semi-ui';
-function Demo() {
+function Dark() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const switchMode = () => {
         const body = document.body;
@@ -21,4 +21,4 @@ function Demo() {
         </Button>
     );
 }
-export default Demo;
+export default Dark;

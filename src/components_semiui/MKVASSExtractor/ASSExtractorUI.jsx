@@ -54,7 +54,8 @@ const ASSExtractorUI = () => {
             <Form.Input id='suffix' field='assSuffix' style={{ width: '95%' }} 
                         label='后缀' trigger='blur' 
                         placeholder='请选择提取字幕的后缀' onChange={handleSuffixChange}/>
-            <RadioGroup onChange={handleLanguageChange} value={language} aria-label="提取语言" name="radio-language">
+            <RadioGroup onChange={handleLanguageChange} value={language} aria-label="提取语言" name="radio-language"
+                        style={{marginBottom: '15px', marginTop: '10px'}}>
               <Radio value={"CHS"}>CHS</Radio>
               <Radio value={"JP"}>JP</Radio>
             </RadioGroup>

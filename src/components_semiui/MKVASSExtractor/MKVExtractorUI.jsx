@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Row, TextArea, Card, RadioGroup, Radio } from '@douyinfe/semi-ui';
+import { Form, Button, Row, TextArea, Card, RadioGroup, Radio, Progress } from '@douyinfe/semi-ui';
 import '../../styles/Button.scss'
 import MKVExtractor from '../../models/MKVASSExtractor/MKVExtractor';
 
@@ -14,7 +14,7 @@ const MKVExtractorUI = () => {
     click,
     onClear,
     inputText,
-    progresspercent
+    progress_percent
   } = MKVExtractor();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -35,6 +35,11 @@ const MKVExtractorUI = () => {
   const handleLanguageChange = (e) => {
       setLanguage(e.target.value);
   };
+  const strokeArr = [
+    { percent: 0, color: 'rgb(255, 238, 0)' },
+    { percent: 50, color: 'rgb(60, 255, 0)' },
+    { percent: 100, color: 'rgb(0, 217, 255)' },
+  ];
   return (
     <div>
       <Card hoverable style={cardStyle} styles={{ body: { padding: 10, overflow: 'hidden' } }} title="MKV字幕提取">
@@ -53,7 +58,8 @@ const MKVExtractorUI = () => {
             <Form.Input id='track' field='track' style={{ width: '95%' }} 
                         label='字幕轨道' trigger='blur' 
                         placeholder='请选择字幕轨道' onChange={handleTrackChange}/>
-            <RadioGroup onChange={handleLanguageChange} value={language} aria-label="提取语言" name="radio-language">
+            <RadioGroup onChange={handleLanguageChange} value={language} aria-label="提取语言" name="radio-language" 
+                        style={{marginBottom: '15px', marginTop: '10px'}}>
               <Radio value={"CHS"}>CHS</Radio>
               <Radio value={"JP"}>JP</Radio>
             </RadioGroup>
@@ -71,7 +77,16 @@ const MKVExtractorUI = () => {
                 </Button>
 
             </Row>
-                <TextArea rows={10} style={{marginTop: '30px', marginBottom: '30px'}} value={inputText}/>
+                <Progress
+                    percent={progress_percent}
+                    stroke={strokeArr}
+                    strokeGradient={true}
+                    showInfo
+                    size="large"
+                    aria-label="file download speed"
+                    style={{marginTop: '15px'}}
+                />
+                <TextArea rows={10} style={{marginTop: '10px', marginBottom: '30px'}} value={inputText}/>
                 <Button htmlType="reset" className="primary-button" onClick={onClear}>
                         清空
                 </Button>
