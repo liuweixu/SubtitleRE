@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Button, Card, Form, Input, Radio  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
+import ASSFontNameEdit from '../../models/ASSProcess/ASSFontNameEdit';
 
 const { TextArea } = Input;
 
@@ -9,16 +10,31 @@ const cardStyle = {
   width: '95%',
   margin: '0 auto'
 };
-const ASSFontNameEditUI = ({
-  handleInputdirChange,
-  handleSuffixChange,
-  handleStyleChange,
-  handleFontChange,
-  onCommit,
-  onClear,
-  inputText
-}) => {
+const ASSFontNameEditUI = () => {
+  const models = ASSFontNameEdit();
+  const { 
+    click,
+    onClear,
+    inputText
+  } = models;
   const formLayout = 'horizontal'
+  const [input_dir, setInput_dir] = useState('');
+  const [suffix, setSuffix] = useState('');
+  const [style, setStyle] = useState('');
+  const [fontname, setFontname] = useState('');
+  
+  const handleInputdirChange = (e) => {
+      setInput_dir(e.target.value);
+  }
+  const handleSuffixChange = (e) => {
+      setSuffix(e.target.value);
+  }
+  const handleStyleChange = (e) => {
+      setStyle(e.target.value);
+  }
+  const handleFontChange = (e) => {
+      setFontname(e.target.value);
+  }
   return (
     <div>
     <Card hoverable style={cardStyle} styles={{ body: { padding: 10, overflow: 'hidden' } }} title="ASS字体名称修改工具">
@@ -46,7 +62,7 @@ const ASSFontNameEditUI = ({
             type="primary" 
             icon={<AntDesignOutlined />} 
             style={{ marginRight: '30px' }}
-            onClick={onCommit}
+            onClick={() => click(input_dir, suffix, style, fontname)}
           >
             确定进行
           </Button>

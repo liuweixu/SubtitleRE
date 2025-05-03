@@ -1,31 +1,8 @@
-import React, {useState} from 'react';
-import '../../Button/ButtonGradient.css';
-import MKVExtractorUI from './MKVExtractorUI';
+import {useState} from 'react';
 
 const MKVExtractor = () => {
-
-    const [input, setInput] = useState('');
-    const [output, setOutput] = useState('');
-    const [track, setTrack] = useState('');
-    let defaultlanguage = 'JP'
-    const [language, setLanguage] = useState(defaultlanguage);
-    const [inputText, setInputText] = useState('');
-
-    const handleInputChange = (e) => {
-        setInput(e.target.value);
-    }
-    const handleOutputChange = (e) => {
-        setOutput(e.target.value)
-    }
-    const handleTrackChange = (e) => {
-        setTrack(e.target.value);
-    }
-    //关键
-    const handleLanguageChange = ({ target: { value } }) => {
-        setLanguage(value);
-    };
-
     // 日志记录 
+    const [inputText, setInputText] = useState('');
     let resultLogText = '' // 暂时存储结果文本
 
     // 进度计算
@@ -57,18 +34,11 @@ const MKVExtractor = () => {
         }
     }
 
-    return (
-    <MKVExtractorUI
-        handleInputChange={handleInputChange}
-        handleOutputChange={handleOutputChange}
-        handleTrackChange={handleTrackChange}
-        handleLanguageChange={handleLanguageChange}
-        onCommit={() => click(input, output, track, language)}
-        onClear={() => setInputText('')}
-        inputText={inputText}
-        language={language}
-        progresspercent={progresspercent}
-    />
-  )
+    return {
+        click,
+        onClear: () => setInputText(''),
+        inputText,
+        progresspercent
+    }
 };
 export default MKVExtractor;

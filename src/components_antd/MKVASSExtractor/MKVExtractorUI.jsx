@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Form, Input, Radio, Progress  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
+import MKVExtractor from '../../models/MKVASSExtractor/MKVExtractor';
 
 const { TextArea } = Input;
 
@@ -9,17 +10,33 @@ const cardStyle = {
   width: '95%',
   margin: '0 auto'
 };
-const MKVExtractorUI = ({
-  handleInputChange,
-  handleOutputChange,
-  handleTrackChange,
-  handleLanguageChange,
-  onCommit,
-  onClear,
-  inputText,
-  language,
-  progresspercent
-}) => {
+const MKVExtractorUI = () => {  
+  const models = MKVExtractor()
+  const {
+    click,
+    onClear,
+    inputText,
+    progresspercent
+  } = models
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
+  const [track, setTrack] = useState('');
+  let defaultlanguage = 'JP'
+  const [language, setLanguage] = useState(defaultlanguage);
+  
+  const handleInputChange = (e) => {
+      setInput(e.target.value);
+  }
+  const handleOutputChange = (e) => {
+      setOutput(e.target.value)
+  }
+  const handleTrackChange = (e) => {
+      setTrack(e.target.value);
+  }
+  //关键
+  const handleLanguageChange = ({ target: { value } }) => {
+      setLanguage(value);
+  };
   const formLayout = 'horizontal'
   const OptionsLanguage = ['CHS', 'JP']
   return (
@@ -49,7 +66,7 @@ const MKVExtractorUI = ({
             type="primary" 
             icon={<AntDesignOutlined />} 
             style={{ marginRight: '30px' }}
-            onClick={onCommit}
+            onClick={() => click(input, output, track, language)}
           >
             确定进行
           </Button>

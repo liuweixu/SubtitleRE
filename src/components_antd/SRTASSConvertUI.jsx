@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../Button/ButtonGradient.css';
+import SRTASSConvert from '../models/SRTASSConvert';    
 
 const { TextArea } = Input;
 
-const SRTASSConvertUI = ({ 
-  formLayout, 
-  form,
-  onFormLayoutChange, 
-  handleInputChange,
-  handleSuffixChange,
-  handleOutputChange,
-  handleStyleChange,
-  inputText,
-  onCommit,
-  onClear
-}) => {
+const SRTASSConvertUI = () => {
+  const models = SRTASSConvert();
+  const {
+    inputText,
+    click,
+    onClear
+  } = models;
+  //获取输入框的目录地址
+  const [input, setInput] = useState('');
+  const [suffix, setSuffix] = useState('');
+  const [output, setOutput] = useState('');
+  const [style, setStyle] = useState('');
+  
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+  }
+  const handleSuffixChange = (e) => {
+    setSuffix(e.target.value);
+  }
+  const handleOutputChange = (e) => {
+    setOutput(e.target.value);
+  }
+  const handleStyleChange = (e) => {
+    setStyle(e.target.value);
+  }
+  const [form] = Form.useForm();
+  const [formLayout, setFormLayout] = useState('horizontal');
+  const onFormLayoutChange = ({ layout }) => {
+    setFormLayout(layout);
+  };
   return (
     <Form
       layout={formLayout}
@@ -51,7 +70,7 @@ const SRTASSConvertUI = ({
           type="primary" 
           icon={<AntDesignOutlined />} 
           style={{ marginRight: '30px' }}
-          onClick={onCommit}
+          onClick={() => click(input, suffix, output, style)}
         >
           确定进行
         </Button>

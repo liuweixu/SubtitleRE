@@ -1,42 +1,42 @@
-import React, { Children, useState } from 'react';
-import { Layout, ConfigProvider, Menu, Switch } from 'antd';
+import React, { useState } from 'react';
+import { Layout, Menu, Switch } from 'antd';
 import { 
   CodepenOutlined,
   CodeSandboxOutlined,
   CodepenCircleOutlined,
   CodeOutlined
 } from '@ant-design/icons';
-import SRTAndASSAlign from '../components/SRTAndASSAlign'
-import ScaleEdit from '../components/ASSProcess/ScaledEdit'
-import ASSFontNameEdit from '../components/ASSProcess/ASSFontNameEdit';
-import ASS_StyleEdit from '../components/ASSProcess/ASS_StyleEdit';
-import SRTASSConvert from '../components/SRTASSConvert';
-import ASSExtractor from '../components/MKVASSExtractor/ASSExtractor';
-import MKVExtractor from '../components/MKVASSExtractor/MKVExtractor';
+import SRTAndASSAlignUI from '../components_antd/SRTAndASSAlignUI'
+import ScaleEditUI from '../components_antd/ASSProcess/ScaledEditUI'
+import ASSFontNameEditUI from '../components_antd/ASSProcess/ASSFontNameEditUI';
+import ASS_StyleEditUI from '../components_antd/ASSProcess/ASS_StyleEditUI';
+import SRTASSConvertUI from '../components_antd/SRTASSConvertUI';
+import ASSExtractorUI from '../components_antd/MKVASSExtractor/ASSExtractorUI';
+import MKVExtractorUI from '../components_antd/MKVASSExtractor/MKVExtractorUI';
 // 定义各个内容组件
 // 这些内容涉及到需要操作的部分
 
 const SRTASSConvertLayout = () => (
-  <SRTASSConvert />
+  <SRTASSConvertUI />
 );
 const AlignProcessLayout = () => (
-  <SRTAndASSAlign />
+  <SRTAndASSAlignUI />
 );
 const ASSProcessScaledEditLayout = () => (
-  <ScaleEdit />
+  <ScaleEditUI />
 );
 const ASSProcessASSFontNameEditLayout = () => (
-  <ASSFontNameEdit />
+  <ASSFontNameEditUI />
 );
 const ASSProcessASS_StyleEditLayout = () => (
-  <ASS_StyleEdit />
+  <ASS_StyleEditUI />
 );
 
 const MKVExrtactorLayout = () => (
-  <MKVExtractor/>
+  <MKVExtractorUI/>
 )
 const ASSExtractorLayout = () => (
-  <ASSExtractor/>
+  <ASSExtractorUI/>
 )
 
 const { Content, Footer, Sider } = Layout;

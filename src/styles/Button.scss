@@ -1,0 +1,16 @@
+$color-button_primary-bg-default: var(--semi-color-info-hover); 
+$color-button_primary-text-default: var(--semi-color-bg-4); 
+$radius-button: 7px; 
+$color-button_primary-bg-hover: var(--semi-color-primary);  
+
+.primary-button {
+    color: $color-button_primary-text-default;
+    border-radius: $radius-button;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  
+    &:hover {
+      background: $color-button_primary-bg-hover;
+    }
+  }

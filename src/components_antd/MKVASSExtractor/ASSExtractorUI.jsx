@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Form, Input, Radio  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
+import ASSExtractor from '../../models/MKVASSExtractor/ASSExtractor';
 
 const { TextArea } = Input;
 
@@ -11,19 +12,35 @@ const cardStyle = {
 }
 
 
-const ASSExtractorUI = ({
-  handleInputChange,
-  handleOutputChange,
-  handleSuffixChange,
-  handleLanguageChange,
-  onCommit,
-  onClear,
-  inputText,
-  language
-}) => {
+const ASSExtractorUI = () => {
+  const models = ASSExtractor();
+  const {          
+    click,
+    onClear,
+    inputText,
+  } = models;
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
+  const [suffix, setSuffix] = useState('');
+  let defaultlanguage = 'JP'
+  const [language, setLanguage] = useState(defaultlanguage);
+  
+  const handleInputChange = (e) => {
+      setInput(e.target.value);
+  }
+  const handleOutputChange = (e) => {
+      setOutput(e.target.value)
+  }
+  const handleSuffixChange = (e) => {
+      setSuffix(e.target.value);
+  }
+  //关键
+  const handleLanguageChange = ({ target: { value } }) => {
+      setLanguage(value);
+  };
   const formLayout = 'horizontal'
   // 语言单选
-  const OptionsLanguage = ['CHS', 'JP'];
+  const OptionsLanguage = ['CHS', 'JP'];  
   return (
     <div>
     <Card hoverable style={cardStyle} styles={{ body: { padding: 10, overflow: 'hidden' } }} title="ASS字幕提取">
@@ -51,7 +68,7 @@ const ASSExtractorUI = ({
             type="primary" 
             icon={<AntDesignOutlined />} 
             style={{ marginRight: '30px' }}
-            onClick={onCommit}
+            onClick={() => click(input, output, suffix, language)}
           >
             确定进行
           </Button>

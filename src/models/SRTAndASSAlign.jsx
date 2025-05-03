@@ -1,37 +1,7 @@
-import React, { useState } from 'react';
-import {Form} from 'antd';
-import '../Button/ButtonGradient.css';
-import FormUI from './SRTAndASSAlignFormUI';
+import { useState } from 'react';
 
+const SRTAndASSAlign = () => {
 
-const App = () => {
-  const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState('horizontal');
-  const onFormLayoutChange = ({ layout }) => {
-    setFormLayout(layout);
-  };
-
-  //获取输入框的目录地址
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
-  const [output, setOutput] = useState('');
-  const [srtsuffix, setSrtsuffix] = useState('');
-  const [asssuffix, setAsssuffix] = useState('');
-  const handleInput1Change = (e) => {
-    setInput1(e.target.value);
-  }
-  const handleInput2Change = (e) => {
-    setInput2(e.target.value);
-  }
-  const handleOutputChange = (e) => {
-    setOutput(e.target.value);
-  }
-  const handleSrtsuffixChange = (e) => {
-    setSrtsuffix(e.target.value);
-  }
-  const handleAsssuffixChange = (e) => {
-    setAsssuffix(e.target.value);
-  }
 
   // 日志记录
   const [inputText, setInputText] = useState('');
@@ -85,21 +55,11 @@ const App = () => {
         console.error('读取目录出错:', err)
     }
   }
-  return (
-    <FormUI 
-      formLayout={formLayout}
-      form={form}
-      onFormLayoutChange={onFormLayoutChange}
-      handleInput1Change={handleInput1Change}
-      handleInput2Change={handleInput2Change}
-      handleOutputChange={handleOutputChange}
-      handleSrtsuffixChange={handleSrtsuffixChange}
-      handleAsssuffixChange={handleAsssuffixChange}
-      inputText={inputText}
-      onCommit={() => click(input1, input2, output, srtsuffix, asssuffix)}
-      onClear={() => setInputText('')}
-      progress_percent={progress_percent}
-    />
-  );
+  return {
+    inputText,
+    click,
+    onClear: () => setInputText(''),
+    progress_percent
+  }
 };
-export default App;
+export default SRTAndASSAlign;

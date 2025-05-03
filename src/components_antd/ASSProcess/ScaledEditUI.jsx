@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import { Button, Card, Form, Input, Radio  } from 'antd';
+import React, { useState } from 'react';
+import { Button, Card, Form, Input, Select  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
+import ScaleEdit from '../../models/ASSProcess/ScaledEdit';
 
 const { TextArea } = Input;
 
@@ -9,19 +10,31 @@ const cardStyle = {
   width: '95%',
   margin: '0 auto'
 };
-const ASS_StyleEditUI = ({
-  handleInputdirChange,
-  handleSuffixChange,
-  handleStyleNameChange,
-  handleStyleInformationChange,
-  onCommit,
-  onClear,
-  inputText
-}) => {
+const ScaleEditUI = () => {
+  const models = ScaleEdit();
+  const {
+    click,
+    onClear,
+    inputText
+  } = models;
+  const [input_dir, setInput_dir] = useState('');
+  const [suffix, setSuffix] = useState('');
+  const [target, setTarget] = useState('');
+
+  const handleInputdirChange = (e) => {
+      setInput_dir(e.target.value);
+  }
+  const handleSuffixChange = (e) => {
+      setSuffix(e.target.value);
+  }
+  //关键
+  const handleTargetChange = (value) => {
+      setTarget(value);
+  }
   const formLayout = 'horizontal'
   return (
     <div>
-    <Card hoverable style={cardStyle} styles={{ body: { padding: 10, overflow: 'hidden' } }} title="ASS样式信息修改工具">
+    <Card hoverable style={cardStyle} styles={{ body: { padding: 10, overflow: 'hidden' } }} title="ScaledBorderAndShadow修改工具">
     <Form
         layout={formLayout}
         initialValues={{ layout: formLayout }}
@@ -33,20 +46,31 @@ const ASS_StyleEditUI = ({
         <Form.Item id='input_suffix' label="后缀">
           <Input placeholder="请输入ass字幕的后缀" onChange={handleSuffixChange}/>
         </Form.Item>
-        <Form.Item id='input_target' label="样式名称">
-          <Input placeholder="请输入修改的样式名称" onChange={handleStyleNameChange}/>
+        <Form.Item id='input_target' label="修改目标">
+          <Select
+            defaultValue={{ value: 'yes', label: 'yes' }}
+            style={{ width: 120 }}
+            onChange={handleTargetChange}
+            options={[
+              {
+                value: 'yes',
+                label: 'yes',
+              },
+              {
+                value: 'no',
+                label: 'no',
+              },
+            ]}
+          />
         </Form.Item>
-        <Form.Item id='input_target' label="样式信息">
-          <Input placeholder="请输入修改后的样式信息" onChange={handleStyleInformationChange}/>
-        </Form.Item>
-        <Form.Item>
+        <Form.Item>  
           <Button 
             id='commit' 
             className="gradient-button" 
             type="primary" 
             icon={<AntDesignOutlined />} 
             style={{ marginRight: '30px' }}
-            onClick={onCommit}
+            onClick={() => click(input_dir, suffix, target)}
           >
             确定进行
           </Button>
@@ -71,4 +95,4 @@ const ASS_StyleEditUI = ({
   )
 
 };
-export default ASS_StyleEditUI;
+export default ScaleEditUI;

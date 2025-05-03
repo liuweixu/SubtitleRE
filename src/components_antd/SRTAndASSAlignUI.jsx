@@ -1,24 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Input, Radio, Progress } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../Button/ButtonGradient.css';
+import SRTAndASSAlign from '../models/SRTAndASSAlign'
 
 const { TextArea } = Input;
 
-const FormUI = ({ 
-  formLayout, 
-  form,
-  onFormLayoutChange, 
-  handleInput1Change,
-  handleInput2Change,
-  handleOutputChange,
-  handleSrtsuffixChange,
-  handleAsssuffixChange,
-  inputText,
-  onCommit,
-  onClear,
-  progress_percent
-}) => {
+const SRTAndASSAlignUI = () => {
+  const models = SRTAndASSAlign();
+  const {
+    inputText,
+    click,
+    onClear,
+    progress_percent
+  } = models;
+  //获取输入框的目录地址
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [output, setOutput] = useState('');
+  const [srtsuffix, setSrtsuffix] = useState('');
+  const [asssuffix, setAsssuffix] = useState('');
+  const handleInput1Change = (e) => {
+    setInput1(e.target.value);
+  }
+  const handleInput2Change = (e) => {
+    setInput2(e.target.value);
+  }
+  const handleOutputChange = (e) => {
+    setOutput(e.target.value);
+  }
+  const handleSrtsuffixChange = (e) => {
+    setSrtsuffix(e.target.value);
+  }
+  const handleAsssuffixChange = (e) => {
+    setAsssuffix(e.target.value);
+  }
+  const [form] = Form.useForm();
+  const [formLayout, setFormLayout] = useState('horizontal');
+  const onFormLayoutChange = ({ layout }) => {
+    setFormLayout(layout);
+  };
   return (
     <Form
       layout={formLayout}
@@ -62,7 +83,7 @@ const FormUI = ({
           type="primary" 
           icon={<AntDesignOutlined />} 
           style={{ marginRight: '30px' }}
-          onClick={onCommit}
+          onClick={() => click(input1, input2, output, srtsuffix, asssuffix)}
         >
           确定进行
         </Button>
@@ -86,4 +107,4 @@ const FormUI = ({
   );
 };
 
-export default FormUI;
+export default SRTAndASSAlignUI;

@@ -1,10 +1,12 @@
+import './styles/global.css';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import AppSemi from './AppDY.jsx'
+import AppAntd from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    {/* <AppSemi /> */}
+    <AppAntd />
   </StrictMode>
 )
