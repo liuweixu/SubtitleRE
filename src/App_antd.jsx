@@ -1,10 +1,10 @@
-import LayoutNav from './layouts/LayoutNav'
+import Mainantd from './main_antd_UI'
 
 
 function App() {
   return (
     <div>
-        <LayoutNav/>
+        <Mainantd/>
     </div>
   )
 }

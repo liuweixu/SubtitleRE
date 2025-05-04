@@ -1,4 +1,4 @@
-import MAINUI from './mainUI'
+import MAINUI from './main_semiui_UI'
 
 function App() {
   return (

@@ -6,13 +6,13 @@ import {
   CodepenCircleOutlined,
   CodeOutlined
 } from '@ant-design/icons';
-import SRTAndASSAlignUI from '../components_antd/SRTAndASSAlignUI'
-import ScaleEditUI from '../components_antd/ASSProcess/ScaledEditUI'
-import ASSFontNameEditUI from '../components_antd/ASSProcess/ASSFontNameEditUI';
-import ASS_StyleEditUI from '../components_antd/ASSProcess/ASS_StyleEditUI';
-import SRTASSConvertUI from '../components_antd/SRTASSConvertUI';
-import ASSExtractorUI from '../components_antd/MKVASSExtractor/ASSExtractorUI';
-import MKVExtractorUI from '../components_antd/MKVASSExtractor/MKVExtractorUI';
+import SRTAndASSAlignUI from './components_antd/SRTAndASSAlignUI'
+import ScaleEditUI from './components_antd/ASSProcess/ScaledEditUI'
+import ASSFontNameEditUI from './components_antd/ASSProcess/ASSFontNameEditUI';
+import ASS_StyleEditUI from './components_antd/ASSProcess/ASS_StyleEditUI';
+import SRTASSConvertUI from './components_antd/SRTASSConvertUI';
+import ASSExtractorUI from './components_antd/MKVASSExtractor/ASSExtractorUI';
+import MKVExtractorUI from './components_antd/MKVASSExtractor/MKVExtractorUI';
 // 定义各个内容组件
 // 这些内容涉及到需要操作的部分
 
