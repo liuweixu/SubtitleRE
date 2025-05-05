@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../Button/ButtonGradient.css';
-import SRTASSConvert from '../models/SRTASSConvert';    
+import SRTASSConvert from '../models/SRTASSConvert';  
 
 const { TextArea } = Input;
 
@@ -48,7 +48,6 @@ const SRTASSConvertUI = () => {
         <Radio.Group value={formLayout}>
           <Radio.Button value="horizontal">横向布局</Radio.Button>
           <Radio.Button value="vertical">竖向布局</Radio.Button>
-          {/* <Radio.Button value="inline">Inline</Radio.Button> */}
         </Radio.Group>
       </Form.Item>
       <Form.Item id='input1' label="SRT输入目录">

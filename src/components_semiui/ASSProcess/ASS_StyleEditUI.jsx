@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Card, Select } from '@douyinfe/semi-ui';
 import '../../styles/Button.scss'
 import Ass_StyleEdit from '../../models/ASSProcess/ASS_StyleEdit';
-
+import FormChange from '../FormChange_folderselector'
 
 const cardStyle = {
   width: '95%',
@@ -44,6 +44,10 @@ const handleStyleInformationChange = (value, e) => {
             <Form.Input id='input-dir' field='inputDir' style={{ width: '95%' }} 
                         label='输入目录' trigger='blur' 
                         placeholder='请输入原ass字幕所在的目录' onChange={handleInputdirChange}/>
+            <FormChange
+                field_name={'inputDir'}
+                setInput={setInput_dir}
+            />
             <Form.Input id='suffix' field='assSuffix' style={{ width: '95%' }} 
                         label='后缀' trigger='blur' 
                         placeholder='请输入ass字幕的后缀' onChange={handleSuffixChange}/>

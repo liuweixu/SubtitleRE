@@ -91,7 +91,7 @@ npm run electorn:build
 ### 程序的注意事项
 - 在使用React-Vite脚手架创建项目时，在创建项目时，需要选择JavaScript+SWC作为编程语言。因为SWC编译器可以更快地编译代码，并且可以支持React的最新特性。
 - 在与React相关的程序中（src文件夹下），涉及到的js程序文件的后缀名必须为jsx，而不是js。而与Electron相关的程序中（electron文件夹下），涉及到的js程序文件的后缀名可以为js。
-- 在Electron中，使用Node.js的API写程序，需要使用import语句导入，而不是require语句导入。
+- 在Electron中，使用Node.js的API写程序，需要使用import语句导入，而不是require语句导入，这是ES的规范要求。
 - 对本地文件进行读写处理、运行本地命令等操作时，需要在Electron中进行编写，然后将处理结果通过ipcMain和ipcRenderer方式与React进行通信（也就是传递数据）即可。
 - 打包时，需要注意package.json文件中的build字段中的file等字段是否把需要打包的文件都包含进去，比如dist和electron文件夹下的所有文件等。
 

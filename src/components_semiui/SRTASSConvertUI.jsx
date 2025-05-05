@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Row, TextArea } from '@douyinfe/semi-ui';
 import '../styles/Button.scss'
 import SRTASSConvert from '../models/SRTASSConvert';
+import FormChange from './FormChange_folderselector';
 
 const SRTASSConvertUI = () => {
     const {
@@ -36,15 +37,23 @@ const SRTASSConvertUI = () => {
         <Form.Input id='srt_input' field='srtInputDir' style={{ width: '95%' }} 
                     label='SRT输入目录' trigger='blur' 
                     placeholder='请输入SRT字幕所在目录' onChange={handleInputChange}/>
-        <Form.Input id='suffix' field='srtSuffix' style={{ width: '95%' }} 
+        <FormChange
+            field_name={'srtInputDir'}
+            setInput={setInput}
+        />
+        <Form.Input id='suffix' field='srtSuffix' style={{ width: '95%', marginTop: '10px' }} 
                     label='后缀' trigger='blur' 
                     placeholder='请输入SRT字幕的后缀' onChange={handleSuffixChange}/>
         <Form.Input id='output' field='assOuputDir' style={{ width: '95%' }} 
                     label='ASS输出目录' trigger='blur' 
                     placeholder='请输入转换后的ASS字幕的输出目录' onChange={handleOutputChange}/>
-        <Form.Input id='style' field='styleInformation' style={{ width: '95%' }} 
+        <FormChange
+            field_name={'assOuputDir'}
+            setInput={setOutput}
+        />
+        <Form.Input id='style' field='styleInformation' style={{ width: '95%', marginTop: '10px' }} 
                     label='样式信息' trigger='blur' 
-                    placeholder='请输入目标样' onChange={handleStyleChange}/>
+                    placeholder='请输入目标样式' onChange={handleStyleChange}/>
         <Row>
             <Button type="primary"
                     htmlType="submit" 

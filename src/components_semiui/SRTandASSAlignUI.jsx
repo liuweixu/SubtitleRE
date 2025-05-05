@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Progress } from '@douyinfe/semi-ui';
 import '../styles/Button.scss'
 import SRTAndASSAlign from '../models/SRTAndASSAlign';
+import FormChange from './FormChange_folderselector'
 
 const SRTandASSAlignUI = () => {
     const {
@@ -31,11 +32,15 @@ const SRTandASSAlignUI = () => {
     const handleAsssuffixChange = (value, e) => {
         setAsssuffix(value);
     }
+
     const strokeArr = [
         { percent: 0, color: 'rgb(255, 238, 0)' },
         { percent: 50, color: 'rgb(60, 255, 0)' },
         { percent: 100, color: 'rgb(0, 217, 255)' },
     ];
+    const filed_name1 = 'srtInputDir';
+    const filed_name2 ='assInputDir';
+    const filed_name3 ='srtOuputDir';
     return (    
         <Form
             // wrapperCol={{ span: 20 }}
@@ -43,19 +48,32 @@ const SRTandASSAlignUI = () => {
             labelPosition='inset'
             labelAlign='right'
         >
-            <Form.Input id='input1' field='srtInputDir' style={{ width: '95%' }} 
+            <Form.Input id='input1' field={filed_name1} style={{ width: '95%' }} 
                         label='SRT输入目录' trigger='blur' 
                         placeholder='请输入日语SRT字幕所在目录' onChange={handleInput1Change}/>
-            <Form.Input id='input2' field='assInputDir' style={{ width: '95%' }} 
+            
+            <FormChange
+                field_name={filed_name1}
+                setInput={setInput1}
+            />
+            <Form.Input id='input2' field={filed_name2} style={{ width: '95%' }} 
                         label='ASS输入目录' trigger='blur' 
                         placeholder='请输入中文ASS字幕所在的目录' onChange={handleInput2Change}/>
-            <Form.Input id='output' field='srtOuputDir' style={{ width: '95%' }} 
+            <FormChange
+                field_name={filed_name2}
+                setInput={setInput2}
+            />
+            <Form.Input id='output' field={filed_name3} style={{ width: '95%' }} 
                         label='SRT输出目录' trigger='blur' 
                         placeholder='请输入对齐后日语SRT字幕所在的目录' onChange={handleOutputChange}/>
+            <FormChange
+                field_name={filed_name3}
+                setInput={setOutput}
+            />
             <Row>
             <Form.Input id='srtsuffix' field='srtsuffix' style={{ width: '40%' }} 
                         label='SRT字幕后缀' trigger='blur' placeholder='例如：.jp.srt' onChange={handleSrtsuffixChange}/>
-            <Form.Input id='asssuffix' field='sssuffix' style={{ width: '40%' }} 
+            <Form.Input id='asssuffix' field='asssuffix' style={{ width: '40%' }} 
                         label='ASS字幕后缀' trigger='blur' placeholder='例如：.sc.ass' onChange={handleAsssuffixChange}/>
            </Row>
             <Row>

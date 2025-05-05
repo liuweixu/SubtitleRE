@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Card, RadioGroup, Radio } from '@douyinfe/semi-ui';
 import '../../styles/Button.scss'
 import ASSExtractor from '../../models/MKVASSExtractor/ASSExtractor';
-
+import FormChange from '../FormChange_folderselector'
 
 const cardStyle = {
   width: '95%',
@@ -48,9 +48,17 @@ const ASSExtractorUI = () => {
             <Form.Input id='input' field='inputDir' style={{ width: '95%' }} 
                         label='输入目录' trigger='blur' 
                         placeholder='请输入原ass字幕所在的目录' onChange={handleInputChange}/>
+            <FormChange
+                field_name={'inputDir'}
+                setInput={setInput}
+            />
             <Form.Input id='output' field='outputDir' style={{ width: '95%' }} 
                         label='输出目录' trigger='blur' 
                         placeholder='请选择提取后字幕的输出目录' onChange={handleOutputChange}/>
+            <FormChange
+                field_name={'outputDir'}
+                setInput={setOutput}
+            />
             <Form.Input id='suffix' field='assSuffix' style={{ width: '95%' }} 
                         label='后缀' trigger='blur' 
                         placeholder='请选择提取字幕的后缀' onChange={handleSuffixChange}/>

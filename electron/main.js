@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron'
+import { app, BrowserWindow, Menu, dialog } from 'electron'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { ipcMain } from 'electron'
@@ -110,6 +110,14 @@ ipcMain.handle('read-directory', async (event, dirPath) => {
     console.error('读取目录出错:', error)
     throw error
   }
+})
+
+// 处理文件夹选择请求
+ipcMain.handle('open-folder-dialog', async (event) => {
+  const result = await dialog.showOpenDialog({
+    properties: ['openDirectory']
+  })
+  return result
 })
 
 ipcMain.handle('align_processing', async(event, inputAlign) => {

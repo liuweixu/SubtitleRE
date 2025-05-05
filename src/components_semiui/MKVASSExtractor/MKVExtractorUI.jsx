@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Card, RadioGroup, Radio, Progress } from '@douyinfe/semi-ui';
 import '../../styles/Button.scss'
 import MKVExtractor from '../../models/MKVASSExtractor/MKVExtractor';
-
+import FormChange from '../FormChange_folderselector'
 
 const cardStyle = {
   width: '95%',
@@ -52,9 +52,17 @@ const MKVExtractorUI = () => {
             <Form.Input id='input' field='inputDir' style={{ width: '95%' }} 
                         label='输入目录' trigger='blur' 
                         placeholder='请输入原ass字幕所在的目录' onChange={handleInputChange}/>
+            <FormChange
+                field_name={'inputDir'}
+                setInput={setInput}
+            />
             <Form.Input id='output' field='outputDir' style={{ width: '95%' }} 
                         label='输出目录' trigger='blur' 
                         placeholder='请选择提取后字幕的输出目录' onChange={handleOutputChange}/>
+            <FormChange
+                field_name={'outputDir'}
+                setInput={setOutput}
+            />
             <Form.Input id='track' field='track' style={{ width: '95%' }} 
                         label='字幕轨道' trigger='blur' 
                         placeholder='请选择字幕轨道' onChange={handleTrackChange}/>

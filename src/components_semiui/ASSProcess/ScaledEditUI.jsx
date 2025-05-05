@@ -3,7 +3,7 @@ import { Form, Button, Row, TextArea, Card, Select } from '@douyinfe/semi-ui';
 import '../../styles/Button.scss'
 import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
 import ScaleEdit from '../../models/ASSProcess/ScaledEdit';
-
+import FormChange from '../FormChange_folderselector'
 
 const cardStyle = {
   width: '95%',
@@ -44,12 +44,13 @@ const ScaleEditUI = () => {
             <Form.Input id='input-dir' field='inputDir' style={{ width: '95%' }} 
                         label='输入目录' trigger='blur' 
                         placeholder='请输入原ass字幕所在的目录' onChange={handleInputdirChange}/>
+            <FormChange
+                field_name={'inputDir'}
+                setInput={setInput_dir}
+            />
             <Form.Input id='suffix' field='assSuffix' style={{ width: '95%' }} 
                         label='后缀' trigger='blur' 
                         placeholder='请输入ass字幕的后缀' onChange={handleSuffixChange}/>
-            {/* <Form.Input id='target' field='target' style={{ width: '95%' }} 
-                        label='后缀' trigger='blur' 
-                        placeholder='请选择提取字幕的后缀' onChange={handleSuffixChange}/> */}
             <Select
                 style={{ width: '320px', marginTop: '15px'}}
                 defaultValue={'yes'}
