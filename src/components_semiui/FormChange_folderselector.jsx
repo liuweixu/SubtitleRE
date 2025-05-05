@@ -1,5 +1,5 @@
 import { useFormApi, Button } from "@douyinfe/semi-ui";
-import FolderSelector from "../common/FolderSelector";
+import FolderSelector from "@/common/FolderSelector";
 import { IconUpload } from "@douyinfe/semi-icons-lab";
 
 /**

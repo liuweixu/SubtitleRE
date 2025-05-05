@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Card, RadioGroup, Radio, Progress } from '@douyinfe/semi-ui';
 import '../../styles/Button.scss'
-import MKVExtractor from '../../models/MKVASSExtractor/MKVExtractor';
-import FormChange from '../FormChange_folderselector'
+import MKVExtractor from '@/models/MKVASSExtractor/MKVExtractor';
+import FormChange from '@/components_semiui/FormChange_folderselector'
 
 const cardStyle = {
   width: '95%',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Card, Select } from '@douyinfe/semi-ui';
 import '../../styles/Button.scss'
 import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
-import ScaleEdit from '../../models/ASSProcess/ScaledEdit';
+import ScaleEdit from '@/models/ASSProcess/ScaledEdit';
 import FormChange from '../FormChange_folderselector'
 
 const cardStyle = {

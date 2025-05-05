@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Card, Select } from '@douyinfe/semi-ui';
 import '../../styles/Button.scss'
-import AssFontNameEdit from '../../models/ASSProcess/AssFontNameEdit';
+import AssFontNameEdit from '@/models/ASSProcess/AssFontNameEdit';
 import FormChange from '../FormChange_folderselector'
 
 const cardStyle = {

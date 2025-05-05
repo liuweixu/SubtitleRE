@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Button, Card, Form, Input, Radio  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
-import ASSFontNameEdit from '../../models/ASSProcess/ASSFontNameEdit';
+import ASSFontNameEdit from '@/models/ASSProcess/ASSFontNameEdit';
 
 const { TextArea } = Input;
 

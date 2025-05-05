@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Progress } from '@douyinfe/semi-ui';
 import '../styles/Button.scss'
-import SRTAndASSAlign from '../models/SRTAndASSAlign';
+import SRTAndASSAlign from '@/models/SRTAndASSAlign';
 import FormChange from './FormChange_folderselector'
 
 const SRTandASSAlignUI = () => {

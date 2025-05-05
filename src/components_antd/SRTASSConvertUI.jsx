@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../Button/ButtonGradient.css';
-import SRTASSConvert from '../models/SRTASSConvert';  
+import SRTASSConvert from '@/models/SRTASSConvert';  
 
 const { TextArea } = Input;
 

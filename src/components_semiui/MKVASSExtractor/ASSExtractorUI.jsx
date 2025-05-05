@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, TextArea, Card, RadioGroup, Radio } from '@douyinfe/semi-ui';
-import '../../styles/Button.scss'
-import ASSExtractor from '../../models/MKVASSExtractor/ASSExtractor';
+import '@/styles/Button.scss'
+import ASSExtractor from '@/models/MKVASSExtractor/ASSExtractor';
+
 import FormChange from '../FormChange_folderselector'
 
 const cardStyle = {

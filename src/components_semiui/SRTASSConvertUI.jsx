@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, TextArea } from '@douyinfe/semi-ui';
 import '../styles/Button.scss'
-import SRTASSConvert from '../models/SRTASSConvert';
+import SRTASSConvert from '@/models/SRTASSConvert';
 import FormChange from './FormChange_folderselector';
 
 const SRTASSConvertUI = () => {

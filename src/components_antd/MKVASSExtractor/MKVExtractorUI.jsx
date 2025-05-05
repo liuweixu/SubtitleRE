@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Card, Form, Input, Radio, Progress  } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import '../../Button/ButtonGradient.css';
-import MKVExtractor from '../../models/MKVASSExtractor/MKVExtractor';
+import MKVExtractor from '@/models/MKVASSExtractor/MKVExtractor';
 
 const { TextArea } = Input;
 
