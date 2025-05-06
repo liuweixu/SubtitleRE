@@ -1,11 +1,11 @@
-import MAINUI from './main_semiui_UI'
+import MainUI from "./main_semiui_UI";
 
 function App() {
   return (
     <div>
-      <MAINUI/>
+      <MainUI />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

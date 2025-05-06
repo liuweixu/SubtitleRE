@@ -1,12 +1,11 @@
-import Mainantd from './main_antd_UI'
-
+import Mainantd from "./main_antd_UI";
 
 function App() {
   return (
     <div>
-        <Mainantd/>
+      <Mainantd />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

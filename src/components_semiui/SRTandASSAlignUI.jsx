@@ -1,110 +1,136 @@
-import React, { useState } from 'react';
-import { Form, Button, Row, TextArea, Progress } from '@douyinfe/semi-ui';
-import '../styles/Button.scss'
-import SRTAndASSAlign from '@/models/SRTAndASSAlign';
-import FormChange from './FormChange_folderselector'
+import React, { useState } from "react";
+import { Form, Button, Row, TextArea, Progress } from "@douyinfe/semi-ui";
+import "../styles/Button.scss";
+import SRTAndASSAlign from "@/models/SRTAndASSAlign";
+import FormChange from "./FormChange_folderselector";
 
 const SRTandASSAlignUI = () => {
-    const {
-        inputText,
-        click,
-        onClear,
-        progress_percent
-    } = SRTAndASSAlign();
-    //获取输入框的目录地址
-    const [input1, setInput1] = useState('');
-    const [input2, setInput2] = useState('');
-    const [output, setOutput] = useState('');
-    const [srtsuffix, setSrtsuffix] = useState('');
-    const [asssuffix, setAsssuffix] = useState('');
-    const handleInput1Change = (value, e) => {
-        setInput1(value);
-    }
-    const handleInput2Change = (value, e) => {
-        setInput2(value);
-    }
-    const handleOutputChange = (value, e) => {
-        setOutput(value);
-    }
-    const handleSrtsuffixChange = (value, e) => {
-        setSrtsuffix(value);
-    }
-    const handleAsssuffixChange = (value, e) => {
-        setAsssuffix(value);
-    }
+  const { inputText, click, onClear, progress_percent } = SRTAndASSAlign();
+  //获取输入框的目录地址
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+  const [output, setOutput] = useState("");
+  const [srtsuffix, setSrtsuffix] = useState("");
+  const [asssuffix, setAsssuffix] = useState("");
+  const handleInput1Change = (value) => {
+    setInput1(value);
+  };
+  const handleInput2Change = (value) => {
+    setInput2(value);
+  };
+  const handleOutputChange = (value) => {
+    setOutput(value);
+  };
+  const handleSrtsuffixChange = (value) => {
+    setSrtsuffix(value);
+  };
+  const handleAsssuffixChange = (value) => {
+    setAsssuffix(value);
+  };
 
-    const strokeArr = [
-        { percent: 0, color: 'rgb(255, 238, 0)' },
-        { percent: 50, color: 'rgb(60, 255, 0)' },
-        { percent: 100, color: 'rgb(0, 217, 255)' },
-    ];
-    const filed_name1 = 'srtInputDir';
-    const filed_name2 ='assInputDir';
-    const filed_name3 ='srtOuputDir';
-    return (    
-        <Form
-            // wrapperCol={{ span: 20 }}
-            labelCol={{ span: 10 }}
-            labelPosition='inset'
-            labelAlign='right'
+  const strokeArr = [
+    { percent: 0, color: "rgb(255, 238, 0)" },
+    { percent: 50, color: "rgb(60, 255, 0)" },
+    { percent: 100, color: "rgb(0, 217, 255)" },
+  ];
+  const filed_name1 = "srtInputDir";
+  const filed_name2 = "assInputDir";
+  const filed_name3 = "srtOuputDir";
+  return (
+    <Form
+      // wrapperCol={{ span: 20 }}
+      labelCol={{ span: 10 }}
+      labelPosition="inset"
+      labelAlign="right"
+    >
+      <Form.Input
+        id="input1"
+        field={filed_name1}
+        style={{ width: "95%" }}
+        label="SRT输入目录"
+        trigger="blur"
+        placeholder="请输入日语SRT字幕所在目录"
+        onChange={handleInput1Change}
+      />
+
+      <FormChange field_name={filed_name1} setInput={setInput1} />
+      <Form.Input
+        id="input2"
+        field={filed_name2}
+        style={{ width: "95%" }}
+        label="ASS输入目录"
+        trigger="blur"
+        placeholder="请输入中文ASS字幕所在的目录"
+        onChange={handleInput2Change}
+      />
+      <FormChange field_name={filed_name2} setInput={setInput2} />
+      <Form.Input
+        id="output"
+        field={filed_name3}
+        style={{ width: "95%" }}
+        label="SRT输出目录"
+        trigger="blur"
+        placeholder="请输入对齐后日语SRT字幕所在的目录"
+        onChange={handleOutputChange}
+      />
+      <FormChange field_name={filed_name3} setInput={setOutput} />
+      <Row>
+        <Form.Input
+          id="srtsuffix"
+          field="srtsuffix"
+          style={{ width: "40%" }}
+          label="SRT字幕后缀"
+          trigger="blur"
+          placeholder="例如：.jp.srt"
+          onChange={handleSrtsuffixChange}
+        />
+        <Form.Input
+          id="asssuffix"
+          field="asssuffix"
+          style={{ width: "40%" }}
+          label="ASS字幕后缀"
+          trigger="blur"
+          placeholder="例如：.sc.ass"
+          onChange={handleAsssuffixChange}
+        />
+      </Row>
+      <Row>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="primary-button"
+          style={{ marginRight: "30px" }}
+          onClick={() => click(input1, input2, output, srtsuffix, asssuffix)}
         >
-            <Form.Input id='input1' field={filed_name1} style={{ width: '95%' }} 
-                        label='SRT输入目录' trigger='blur' 
-                        placeholder='请输入日语SRT字幕所在目录' onChange={handleInput1Change}/>
-            
-            <FormChange
-                field_name={filed_name1}
-                setInput={setInput1}
-            />
-            <Form.Input id='input2' field={filed_name2} style={{ width: '95%' }} 
-                        label='ASS输入目录' trigger='blur' 
-                        placeholder='请输入中文ASS字幕所在的目录' onChange={handleInput2Change}/>
-            <FormChange
-                field_name={filed_name2}
-                setInput={setInput2}
-            />
-            <Form.Input id='output' field={filed_name3} style={{ width: '95%' }} 
-                        label='SRT输出目录' trigger='blur' 
-                        placeholder='请输入对齐后日语SRT字幕所在的目录' onChange={handleOutputChange}/>
-            <FormChange
-                field_name={filed_name3}
-                setInput={setOutput}
-            />
-            <Row>
-            <Form.Input id='srtsuffix' field='srtsuffix' style={{ width: '40%' }} 
-                        label='SRT字幕后缀' trigger='blur' placeholder='例如：.jp.srt' onChange={handleSrtsuffixChange}/>
-            <Form.Input id='asssuffix' field='asssuffix' style={{ width: '40%' }} 
-                        label='ASS字幕后缀' trigger='blur' placeholder='例如：.sc.ass' onChange={handleAsssuffixChange}/>
-           </Row>
-            <Row>
-                <Button type="primary"
-                        htmlType="submit" 
-                        className="primary-button" 
-                        style={{marginRight: '30px'}}
-                        onClick={() => click(input1, input2, output, srtsuffix, asssuffix)}
-                >
-                    确认
-                </Button>
-                <Button htmlType="reset" className="primary-button" style={{marginRight: '30px'}}>
-                    重置
-                </Button>
-
-            </Row>
-                <Progress
-                    percent={progress_percent}
-                    stroke={strokeArr}
-                    strokeGradient={true}
-                    showInfo
-                    size="large"
-                    aria-label="file download speed"
-                    style={{marginTop: '15px'}}
-                />
-                <TextArea rows={10} style={{marginTop: '10px', marginBottom: '30px'}} value={inputText}/>
-                <Button htmlType="reset" className="primary-button" onClick={onClear}>
-                        清空
-                </Button>
-        </Form>
-    )
+          确认
+        </Button>
+        <Button
+          htmlType="reset"
+          className="primary-button"
+          style={{ marginRight: "30px" }}
+        >
+          重置
+        </Button>
+      </Row>
+      <Progress
+        percent={progress_percent}
+        stroke={strokeArr}
+        strokeGradient={true}
+        showInfo
+        size="large"
+        aria-label="file download speed"
+        style={{ marginTop: "15px" }}
+      />
+      <TextArea
+        rows={10}
+        style={{ marginTop: "10px", marginBottom: "30px" }}
+        value={inputText}
+      />
+      <Button className="primary-button" onClick={onClear}>
+        清空日志
+      </Button>
+    </Form>
+  );
 };
 
 export default SRTandASSAlignUI;
