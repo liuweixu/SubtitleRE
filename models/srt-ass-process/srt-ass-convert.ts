@@ -1,15 +1,12 @@
 export const SRTASSConvert = () => {
-  // 日志记录
-  let resultLogText = ""; // 暂时存储结果文本
-
   // 点击按钮后触发
   async function click(
     input: string,
     suffix: string,
     output: string,
-    style: string
+    style: string,
+    onLog: (log: string) => void // 日志回调函数
   ) {
-    resultLogText = ""; // 清空日志记录
     try {
       const { ipcRenderer } = window.require("electron");
       const fileInput = await ipcRenderer.invoke("read-directory", input);
@@ -28,9 +25,9 @@ export const SRTASSConvert = () => {
           inputdata
         );
         if (logtext.success) {
-          resultLogText += "处理成功，文件名为：" + logtext.file + "\n";
+          onLog("处理成功，文件名为：" + logtext.file + "\n");
         } else {
-          resultLogText += "处理失败：" + logtext.error + "\n";
+          onLog("处理失败：" + logtext.error + "\n");
         }
       }
     } catch (err) {
@@ -38,12 +35,7 @@ export const SRTASSConvert = () => {
     }
   }
 
-  function getLogText(): string {
-    return resultLogText;
-  }
-
   return {
-    getLogText,
     click,
   };
 };

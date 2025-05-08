@@ -15,16 +15,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { SRTASSConvert } from "@models/srt-ass-process/srt-ass-convert";
+import { ASS_StyleProcess } from "@models/ass-process/ass-style-process";
 
-export function Srt_Ass_Convert_UI() {
+export function ASS_Style_UI() {
   const form = useForm();
-  const { click } = SRTASSConvert();
+  const { click } = ASS_StyleProcess();
   //获取输入框的目录地址
-  const [input, setInput] = useState("");
+  const [input_dir, setInput_dir] = useState("");
   const [suffix, setSuffix] = useState("");
-  const [output, setOutput] = useState("");
-  const [style, setStyle] = useState("");
+  const [stylename, setStyleName] = useState("");
+  const [styleinformation, setStyleInformation] = useState("");
   const [logtext, setLogtext] = useState("");
 
   return (
@@ -40,32 +40,32 @@ export function Srt_Ass_Convert_UI() {
           name="输入信息"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>SRT输入目录</FormLabel>
+              <FormLabel>输入目录</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="请输入SRT字幕所在的目录"
+                  placeholder="请输入原ass字幕所在的目录"
                   {...field}
-                  onChange={(e) => setInput(e.target.value)}
+                  onChange={(e) => setInput_dir(e.target.value)}
                 />
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />
-              <FormLabel>SRT后缀</FormLabel>
+              <FormLabel>后缀</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="请输入SRT字幕的后缀，例如：.jp.srt"
+                  placeholder="请输入ass字幕的后缀，例如：.sc.ass"
                   {...field}
                   onChange={(e) => setSuffix(e.target.value)}
                 />
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />
-              <FormLabel>ASS字幕输出目录</FormLabel>
+              <FormLabel>样式名称</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="请输入转换后的ASS字幕的输出目录"
+                  placeholder="请输入修改的样式名称"
                   {...field}
-                  onChange={(e) => setOutput(e.target.value)}
+                  onChange={(e) => setStyleName(e.target.value)}
                 />
               </FormControl>
               <FormDescription></FormDescription>
@@ -73,9 +73,9 @@ export function Srt_Ass_Convert_UI() {
               <FormLabel>样式信息</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="请输入目标样式"
+                  placeholder="请输入修改后的字体名称"
                   {...field}
-                  onChange={(e) => setStyle(e.target.value)}
+                  onChange={(e) => setStyleInformation(e.target.value)}
                 />
               </FormControl>
               <FormDescription></FormDescription>
@@ -86,7 +86,7 @@ export function Srt_Ass_Convert_UI() {
         <Button
           onClick={async () =>
             //必须使用异步函数，否则日志无法显示
-            await click(input, suffix, output, style, (log) =>
+            await click(input_dir, suffix, stylename, styleinformation, (log) =>
               setLogtext((prev) => prev + log)
             )
           }

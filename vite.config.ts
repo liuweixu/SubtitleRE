@@ -16,7 +16,7 @@ export default defineConfig({
       },
       vite: {
         build: {
-          outDir: "dist/electron",
+          outDir: "dist",
           rollupOptions: {
             external: ["electron"],
           },
@@ -25,7 +25,8 @@ export default defineConfig({
     }),
   ],
   build: {
-    emptyOutDir: false, // 确保electron构建时不会清空输出目录
+    emptyOutDir: true, // 确保electron构建时不会清空输出目录
+    outDir: "dist", // 指定输出目录
   },
   resolve: {
     alias: {

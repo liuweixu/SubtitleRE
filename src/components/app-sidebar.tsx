@@ -15,7 +15,13 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { ProfileForm } from "@/content-ui/srt-ass-process-ui/srt-ass-convert-ui";
+import { Srt_Ass_Convert_UI } from "@/content-ui/srt-ass-process-ui/srt-ass-convert-ui";
+import { Srt_Ass_Align_UI } from "@/content-ui/srt-ass-process-ui/srt-ass-align-ui";
+import { MKV_Extration_UI } from "@/content-ui/mkv-ass-extraction-ui/mkv-extraction-ui";
+import { ASS_Extration_UI } from "@/content-ui/mkv-ass-extraction-ui/ass-extraction-ui";
+import { ASS_Fontname_UI } from "@/content-ui/ass-process-ui/ass-fontname-process-ui";
+import { ASS_Style_UI } from "@/content-ui/ass-process-ui/ass-style-process-ui";
+import { ASS_Scaled_UI } from "@/content-ui/ass-process-ui/ass-scaled-process-ui";
 
 const data = {
   teams: [
@@ -35,12 +41,12 @@ const data = {
         {
           title: "SRT对齐ASS",
           url: "#",
-          content: <ProfileForm />,
+          content: <Srt_Ass_Align_UI />,
         },
         {
           title: "SRT转为ASS",
           url: "#",
-          content: <div>test</div>,
+          content: <Srt_Ass_Convert_UI />,
         },
       ],
     },
@@ -52,10 +58,12 @@ const data = {
         {
           title: "MKV字幕提取",
           url: "#",
+          content: <MKV_Extration_UI />,
         },
         {
           title: "ASS字幕提取",
           url: "#",
+          content: <ASS_Extration_UI />,
         },
       ],
     },
@@ -67,14 +75,17 @@ const data = {
         {
           title: "ScaledBorderAndShadow",
           url: "#",
+          content: <ASS_Scaled_UI />,
         },
         {
           title: "ASS字体名称修改",
           url: "#",
+          content: <ASS_Fontname_UI />,
         },
         {
           title: "ASS样式信息修改",
           url: "#",
+          content: <ASS_Style_UI />,
         },
       ],
     },

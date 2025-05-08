@@ -15,16 +15,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { SRTASSConvert } from "@models/srt-ass-process/srt-ass-convert";
+import { MKVExtractor } from "@models/mkv-ass-extraction/mkv-extraction";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-export function Srt_Ass_Convert_UI() {
+export function MKV_Extration_UI() {
   const form = useForm();
-  const { click } = SRTASSConvert();
-  //获取输入框的目录地址
+  const { click } = MKVExtractor();
   const [input, setInput] = useState("");
-  const [suffix, setSuffix] = useState("");
   const [output, setOutput] = useState("");
-  const [style, setStyle] = useState("");
+  const [track, setTrack] = useState("");
+  const defaultlanguage = "JP";
+  const [language, setLanguage] = useState(defaultlanguage);
   const [logtext, setLogtext] = useState("");
 
   return (
@@ -40,54 +41,65 @@ export function Srt_Ass_Convert_UI() {
           name="输入信息"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>SRT输入目录</FormLabel>
+              <FormLabel>输入目录</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="请输入SRT字幕所在的目录"
+                  placeholder="请输入原ass字幕所在的目录"
                   {...field}
                   onChange={(e) => setInput(e.target.value)}
                 />
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />
-              <FormLabel>SRT后缀</FormLabel>
+              <FormLabel>输出目录</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="请输入SRT字幕的后缀，例如：.jp.srt"
-                  {...field}
-                  onChange={(e) => setSuffix(e.target.value)}
-                />
-              </FormControl>
-              <FormDescription></FormDescription>
-              <FormMessage />
-              <FormLabel>ASS字幕输出目录</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="请输入转换后的ASS字幕的输出目录"
+                  placeholder="请输入提取后的字幕的输出目录"
                   {...field}
                   onChange={(e) => setOutput(e.target.value)}
                 />
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />
-              <FormLabel>样式信息</FormLabel>
+              <FormLabel>字幕轨道</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="请输入目标样式"
+                  placeholder="请输入目标的字幕轨道"
                   {...field}
-                  onChange={(e) => setStyle(e.target.value)}
+                  onChange={(e) => setTrack(e.target.value)}
                 />
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />
+              <RadioGroup
+                className="flex flex-col space-y-1"
+                onValueChange={(value) => setLanguage(value)}
+              >
+                <FormLabel className="font-normal">选择语言</FormLabel>
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value="chs" />
+                  </FormControl>
+                  <FormLabel className="font-normal">CHS</FormLabel>
+                </FormItem>
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value="jp" />
+                  </FormControl>
+                  <FormLabel className="font-normal">JP</FormLabel>
+                </FormItem>
+              </RadioGroup>
             </FormItem>
           )}
         />
         <Button
           onClick={async () =>
-            //必须使用异步函数，否则日志无法显示
-            await click(input, suffix, output, style, (log) =>
-              setLogtext((prev) => prev + log)
+            click(
+              input,
+              output,
+              track,
+              language,
+              (log) => setLogtext((prev) => prev + log) // 实时更新日志
             )
           }
         >
