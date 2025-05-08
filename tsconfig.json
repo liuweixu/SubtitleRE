@@ -11,7 +11,8 @@
     "types": ["vite/client", "electron"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@models/*": ["./models/*"]
     }
   },
   "include": [

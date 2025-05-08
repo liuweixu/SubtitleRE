@@ -1,6 +1,7 @@
 export const SRTASSConvert = () => {
   // 日志记录
   let resultLogText = ""; // 暂时存储结果文本
+
   // 点击按钮后触发
   async function click(
     input: string,
@@ -8,6 +9,7 @@ export const SRTASSConvert = () => {
     output: string,
     style: string
   ) {
+    resultLogText = ""; // 清空日志记录
     try {
       const { ipcRenderer } = window.require("electron");
       const fileInput = await ipcRenderer.invoke("read-directory", input);
@@ -35,8 +37,13 @@ export const SRTASSConvert = () => {
       console.error("读取目录出错:", err);
     }
   }
+
+  function getLogText(): string {
+    return resultLogText;
+  }
+
   return {
-    resultLogText,
+    getLogText,
     click,
   };
 };
