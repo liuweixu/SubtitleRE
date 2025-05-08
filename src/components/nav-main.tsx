@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ChevronRight, type LucideIcon } from "lucide-react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,21 +16,24 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function NavMain({
   items,
+  onItemClick,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
     items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+      title: string;
+      url: string;
+      content?: React.ReactNode;
+    }[];
+  }[];
+  onItemClick?: (content: React.ReactNode) => void;
 }) {
   return (
     <SidebarGroup>
@@ -56,7 +59,14 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <a
+                          href={subItem.url}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                            subItem.content && onItemClick?.(subItem.content);
+                          }}
+                        >
                           <span>{subItem.title}</span>
                         </a>
                       </SidebarMenuSubButton>
@@ -69,5 +79,5 @@ export function NavMain({
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

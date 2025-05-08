@@ -3,7 +3,6 @@ import {
   BookOpen,
   Bot,
   GalleryVerticalEnd,
-  Settings2,
   SquareTerminal,
 } from "lucide-react";
 
@@ -16,13 +15,9 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-// This is sample data.
+import { ProfileForm } from "@/content-ui/srt-ass-process-ui/srt-ass-convert-ui";
+
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
       name: "Acme Inc",
@@ -32,86 +27,53 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "SRT-ASS处理",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "SRT对齐ASS",
           url: "#",
+          content: <ProfileForm />,
         },
         {
-          title: "Starred",
+          title: "SRT转为ASS",
           url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
+          content: <div>test</div>,
         },
       ],
     },
     {
-      title: "Models",
+      title: "字幕提取",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
+          title: "MKV字幕提取",
           url: "#",
         },
         {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
+          title: "ASS字幕提取",
           url: "#",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "ASS字幕处理",
       url: "#",
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
+          title: "ScaledBorderAndShadow",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "ASS字体名称修改",
           url: "#",
         },
         {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
+          title: "ASS样式信息修改",
           url: "#",
         },
       ],
@@ -119,14 +81,19 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  onItemClick,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  onItemClick?: (content: React.ReactNode) => void;
+}) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={data.navMain} onItemClick={onItemClick} />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
