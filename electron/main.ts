@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 import process from "process";
@@ -25,6 +25,8 @@ function createWindow() {
     },
   });
 
+  win.setBackgroundColor("#000000");
+  Menu.setApplicationMenu(null);
   if (app.isPackaged) {
     win.loadFile(path.join(__dirname, "../dist/index.html"));
   } else {

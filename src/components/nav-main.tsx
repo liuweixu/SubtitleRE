@@ -37,7 +37,7 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>字幕处理工具</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible

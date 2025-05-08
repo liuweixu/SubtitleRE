@@ -26,9 +26,9 @@ import { ASS_Scaled_UI } from "@/content-ui/ass-process-ui/ass-scaled-process-ui
 const data = {
   teams: [
     {
-      name: "Acme Inc",
+      name: "",
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: "",
     },
   ],
   navMain: [
