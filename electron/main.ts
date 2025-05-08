@@ -17,7 +17,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url)); // 必须添加�
 function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
-    height: 720,
+    height: 960,
     title: "字幕处理工具",
     webPreferences: {
       nodeIntegration: true,
