@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-function ass_extracting(data, language) {
+const ass_extracting = (data, language) => {
   const lines = data.split("\n");
   const new_lines = [];
   let isEvent = false;
@@ -33,7 +33,7 @@ function ass_extracting(data, language) {
     new_lines.push(line);
   }
   return new_lines.join("\n");
-}
+};
 
 function ASSExtractor(input, file, output, language, basename, callback) {
   const assInputFile = path.join(input, file);
