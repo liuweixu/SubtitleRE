@@ -7,9 +7,12 @@ import {
 } from "@/components/ui/sidebar";
 import { ModeToggle } from "@/components/mode-toggle";
 import React from "react";
+import { Srt_Ass_Align_UI } from "@/content-ui/srt-ass-process-ui/srt-ass-align-ui";
 
 export default function Page() {
-  const [content, setContent] = React.useState<React.ReactNode>(null);
+  const [content, setContent] = React.useState<React.ReactNode>(
+    <Srt_Ass_Align_UI />
+  );
   return (
     <SidebarProvider>
       <AppSidebar onItemClick={setContent} />
