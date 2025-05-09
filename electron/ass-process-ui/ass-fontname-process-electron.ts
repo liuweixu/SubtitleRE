@@ -31,7 +31,7 @@ function modifyFontName(assContent: string, style: string, fontname: string) {
   return lines.join("\n");
 }
 
-export function FontNameProcess(
+export async function FontNameProcess(
   input_dir: string,
   filename: string,
   style: string,
@@ -39,22 +39,15 @@ export function FontNameProcess(
   callback: (err: Error | null, outputPath?: string) => void
 ) {
   const assFilePath = path.join(input_dir, filename);
-  fs.readFile(assFilePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("读取文件出错:", err);
-      if (callback) callback(err);
-      return;
-    }
+  try {
+    const data = await fs.promises.readFile(assFilePath, "utf8");
     const new_data = modifyFontName(data, style, fontname);
     const outputPath = path.join(input_dir, filename);
-    fs.writeFile(outputPath, new_data, "utf8", (err) => {
-      if (err) {
-        console.error("写入文件出错:", err);
-        if (callback) callback(err);
-        return;
-      }
-      console.log("ASS文件修改成功, 已保存为:", outputPath);
-      if (callback) callback(null, outputPath);
-    });
-  });
+    fs.promises.writeFile(outputPath, new_data, "utf8");
+    console.log("ASS文件修改成功, 已保存为:", outputPath);
+    if (callback) callback(null, outputPath);
+  } catch (err) {
+    console.error("文件处理出错:", err);
+    if (callback) callback(err as Error);
+  }
 }

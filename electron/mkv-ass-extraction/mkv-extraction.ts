@@ -1,6 +1,8 @@
 import path from "path";
 import fs from "fs";
 import { exec } from "child_process";
+import { promisify } from "util";
+const execPromise = promisify(exec);
 
 function isDigit(str: string) {
   return /^\d+$/.test(str);
@@ -51,7 +53,7 @@ function mkv_extracting(data: string, language: string) {
   return new_lines.join("\n");
 }
 
-export function MKVExtractor(
+export async function MKVExtractor(
   input: string,
   file: string,
   track: string,
@@ -62,56 +64,32 @@ export function MKVExtractor(
 ) {
   const mkvInputFile = path.join(input, file);
   const mkvTempFile = path.join(output, basename + "temp.sub");
-
-  exec(
-    `mkvextract tracks "${mkvInputFile}" ${track}:"${mkvTempFile}"`,
-    (error) => {
-      if (error) {
-        console.log("读取错误");
-        if (callback) callback(error);
-        return;
-      }
-      fs.readFile(mkvTempFile, "utf-8", (error, data) => {
-        if (error) {
-          console.log("未能识别格式");
-          if (callback) callback(error);
-          return;
-        }
-        const detect_format = detect_subtitle_format(data);
-        if (detect_format == "ass") {
-          const new_data = mkv_extracting(data, language);
-          const mkvOutputFile = path.join(
-            output,
-            basename + "." + language.toLowerCase() + ".ass"
-          );
-          fs.writeFile(mkvOutputFile, new_data, (error) => {
-            fs.unlink(mkvTempFile, () => {});
-            if (error) {
-              console.log("读取错误");
-              if (callback) callback(error);
-              return;
-            }
-            console.log("已提取为ASS字幕");
-            if (callback) callback(null, mkvOutputFile);
-          });
-        } else if (detect_format == "srt") {
-          console.log("属于SRT文件, 不能提取为相应的中文或日语ass字幕");
-          const mkvOutputFileSRT = path.join(output, basename + ".srt");
-          fs.writeFile(mkvOutputFileSRT, data, (error) => {
-            fs.unlink(mkvTempFile, () => {});
-            if (error) {
-              console.log("读取错误");
-              if (callback) callback(error);
-              return;
-            }
-            console.log("已提取为SRT字幕");
-            if (callback) callback(null, mkvOutputFileSRT);
-          });
-        } else {
-          console.log("未知格式错误");
-          if (callback) callback(error);
-        }
-      });
+  try {
+    await execPromise(
+      `mkvextract tracks "${mkvInputFile}" ${track}:"${mkvTempFile}"`
+    );
+    const data = await fs.promises.readFile(mkvTempFile, "utf-8");
+    const detect_format = detect_subtitle_format(data);
+    fs.unlink(mkvTempFile, () => {});
+    if (detect_format == "ass") {
+      const new_data = mkv_extracting(data, language);
+      const mkvOutputFile = path.join(
+        output,
+        basename + "." + language.toLowerCase() + ".ass"
+      );
+      await fs.promises.writeFile(mkvOutputFile, new_data);
+      console.log("已提取为ASS字幕");
+      if (callback) callback(null, mkvOutputFile);
+    } else if (detect_format == "srt") {
+      console.log("属于SRT文件, 不能提取为相应的中文或日语ass字幕");
+      const mkvOutputFileSRT = path.join(output, basename + ".srt");
+      await fs.promises.writeFile(mkvOutputFileSRT, data);
+      console.log("已提取为SRT字幕");
+      if (callback) callback(null, mkvOutputFileSRT);
+    } else {
+      throw new Error("未知格式错误");
     }
-  );
+  } catch (error) {
+    if (callback) callback(error as Error);
+  }
 }

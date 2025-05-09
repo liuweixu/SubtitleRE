@@ -34,7 +34,7 @@ const ass_extracting = (data: string, language: string) => {
   return new_lines.join("\n");
 };
 
-export function ASSExtractor(
+export async function ASSExtractor(
   input: string,
   file: string,
   output: string,
@@ -43,26 +43,18 @@ export function ASSExtractor(
   callback: (err: Error | null, outputPath?: string) => void
 ) {
   const assInputFile = path.join(input, file);
-  fs.readFile(assInputFile, "utf-8", (err, data) => {
-    if (err) {
-      console.log("读取文件出错");
-      if (callback) callback(err);
-      return;
-    }
+  try {
+    const data = await fs.promises.readFile(assInputFile, "utf8");
     const new_data = ass_extracting(data, language);
-
     const assOutputFile = path.join(
       output,
       basename + "." + language.toLowerCase() + ".ass"
     );
-    fs.writeFile(assOutputFile, new_data, "utf-8", (err) => {
-      if (err) {
-        console.error("写入文件出错:", err);
-        if (callback) callback(err);
-        return;
-      }
-      console.log("ASS文件修改成功, 已保存为:", assOutputFile);
-      if (callback) callback(null, assOutputFile);
-    });
-  });
+    fs.promises.writeFile(assOutputFile, new_data, "utf8");
+    console.log("ASS文件提取成功, 已保存为:", assOutputFile);
+    if (callback) callback(null, assOutputFile);
+  } catch (err) {
+    console.error("文件处理出错:", err);
+    if (callback) callback(err as Error);
+  }
 }

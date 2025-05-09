@@ -1,8 +1,10 @@
 import fs from "fs";
 import path from "path";
 import { exec } from "child_process";
+import { promisify } from "util";
+const execPromise = promisify(exec);
 
-export function SrtAssAlign(
+export async function SrtAssAlign(
   srtfile: string,
   assfile: string,
   input1: string,
@@ -12,34 +14,33 @@ export function SrtAssAlign(
 ) {
   const srtpath = path.join(input1, srtfile);
   const asspath = path.join(input2, assfile);
-  // 处理ASS转SRT
-  if (asspath.endsWith(".ass")) {
-    const tempSrtFile = path.join(output, "temp.srt");
-    exec(`ffmpeg -i "${asspath}" "${tempSrtFile}"`, (error) => {
-      if (error) {
-        if (callback) callback(error);
-      }
-      // 调用alass进行对齐
-      const outputFile = path.join(output, srtfile);
-      exec(`alass "${tempSrtFile}" "${srtpath}" "${outputFile}"`, (error) => {
-        // 删除临时SRT文件
+
+  try {
+    if (asspath.endsWith(".ass")) {
+      const tempSrtFile = path.join(output, "temp.srt");
+      try {
+        await execPromise(`ffmpeg -i "${asspath}" "${tempSrtFile}"`);
+        const outputFile = path.join(output, srtfile);
+        await execPromise(
+          `alass "${tempSrtFile}" "${srtpath}" "${outputFile}"`
+        );
         fs.unlink(tempSrtFile, () => {});
-        if (error) {
-          if (callback) callback(error);
-        } else {
-          if (callback) callback(null, srtfile);
-        }
-      });
-    });
-  } else {
-    // 直接调用alass对齐
-    const outputFile = path.join(output, srtfile);
-    exec(`alass "${asspath}" "${srtpath}" "${outputFile}"`, (error) => {
-      if (error) {
-        if (callback) callback(error);
-      } else {
-        if (callback) callback(null, srtfile);
+        callback(null, srtfile);
+      } catch (error) {
+        fs.unlink(tempSrtFile, () => {});
+        console.log(error);
+        callback(error as Error); // 不传递错误，让流程继续
       }
-    });
+    } else {
+      const outputFile = path.join(output, srtfile);
+      try {
+        await execPromise(`alass "${asspath}" "${srtpath}" "${outputFile}"`);
+        callback(null, srtfile);
+      } catch (error) {
+        callback(error as Error); // 不传递错误，让流程继续
+      }
+    }
+  } catch (error) {
+    callback(error as Error); // 确保任何情况下都不会中断流程
   }
 }

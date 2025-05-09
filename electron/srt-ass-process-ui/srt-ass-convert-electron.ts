@@ -51,7 +51,7 @@ function convertion(data: string, style: string) {
   return new_data;
 }
 
-export function SrtAssConvert(
+export async function SrtAssConvert(
   input: string,
   file: string,
   output: string,
@@ -60,22 +60,34 @@ export function SrtAssConvert(
   callback: (err: Error | null, outputPath?: string) => void
 ) {
   const srtFilePath = path.join(input, file);
-  fs.readFile(srtFilePath, "utf-8", (err, data) => {
-    if (err) {
-      console.error("读取文件出错:", err);
-      if (callback) callback(err);
-      return; // 提前返回，避免后续代码的执行，防止callback被重复调用导致的问题，比如重复弹出aler
-    }
+  // fs.readFile(srtFilePath, "utf-8", (err, data) => {
+  //   if (err) {
+  //     console.error("读取文件出错:", err);
+  //     if (callback) callback(err);
+  //     return; // 提前返回，避免后续代码的执行，防止callback被重复调用导致的问题，比如重复弹出aler
+  //   }
+  //   const new_data = convertion(data, style);
+  //   const outputPath = path.join(output, basename + ".jp.ass");
+  //   fs.writeFile(outputPath, new_data, "utf-8", (err) => {
+  //     if (err) {
+  //       console.error("写入文件出错:", err);
+  //       if (callback) callback(err);
+  //       return;
+  //     }
+  //     console.log("ASS文件修改成功, 已保存为:", outputPath);
+  //     if (callback) callback(null, outputPath);
+  //   });
+  // });
+  //上述函数依旧是异步函数，然后下面函数可以用await/async来简化版本，减少回调地狱
+  try {
+    const data = await fs.promises.readFile(srtFilePath, "utf-8");
     const new_data = convertion(data, style);
     const outputPath = path.join(output, basename + ".jp.ass");
-    fs.writeFile(outputPath, new_data, "utf-8", (err) => {
-      if (err) {
-        console.error("写入文件出错:", err);
-        if (callback) callback(err);
-        return;
-      }
-      console.log("ASS文件修改成功, 已保存为:", outputPath);
-      if (callback) callback(null, outputPath);
-    });
-  });
+    await fs.promises.writeFile(outputPath, new_data, "utf-8");
+    console.log("文件转换成功, 已保存为:", outputPath);
+    if (callback) callback(null, outputPath);
+  } catch (err) {
+    console.error("读取文件出错:", err);
+    if (callback) callback(err as Error);
+  }
 }
