@@ -28,8 +28,16 @@ export async function SrtAssAlign(
         callback(null, srtfile);
       } catch (error) {
         fs.unlink(tempSrtFile, () => {});
-        console.log(error);
-        callback(error as Error); // 不传递错误，让流程继续
+        const execError = error as {
+          stdout?: string;
+          stderr?: string;
+          message?: string;
+        };
+        callback(
+          new Error(
+            `\n\n处理失败信息: ${error}\nstdout: ${execError?.stdout}\nstderr: ${execError?.stderr}`
+          )
+        ); // 不传递错误，让流程继续
       }
     } else {
       const outputFile = path.join(output, srtfile);

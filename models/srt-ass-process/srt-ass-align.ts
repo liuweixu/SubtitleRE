@@ -35,7 +35,7 @@ export const SRTASSAlign = () => {
         }
       }
       //保存对齐失败信息
-      const alignfails = [];
+      const alignfails: string[] = [];
       for (const pair of pairs) {
         const inputAlign = [pair[0], pair[1], input1, input2, output];
         const logtext = await ipcRenderer.invoke(

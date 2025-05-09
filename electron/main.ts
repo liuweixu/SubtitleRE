@@ -122,7 +122,7 @@ ipcMain.handle("align_processing", async (event, inputAlign) => {
           //能够让程序处理错误后，能够继续运行
           resolve({
             success: false,
-            error: error?.message,
+            error: error.message,
             file: srtfile,
           });
         } else {
