@@ -5,8 +5,7 @@ const ass_extracting = (data: string, language: string) => {
   const lines = data.split("\n");
   const new_lines = [];
   let isEvent = false;
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+  for (const line of lines) {
     if (line.trim().includes("[Events]")) {
       isEvent = true;
       new_lines.push(line);

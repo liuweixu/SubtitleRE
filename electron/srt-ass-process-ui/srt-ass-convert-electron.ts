@@ -64,7 +64,7 @@ export function SrtAssConvert(
     if (err) {
       console.error("读取文件出错:", err);
       if (callback) callback(err);
-      return;
+      return; // 提前返回，避免后续代码的执行，防止callback被重复调用导致的问题，比如重复弹出aler
     }
     const new_data = convertion(data, style);
     const outputPath = path.join(output, basename + ".jp.ass");

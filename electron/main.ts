@@ -78,10 +78,10 @@ ipcMain.handle("srtassconvert_processing", async (event, inputdata) => {
       }
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       SrtAssConvert(input, file, output, style, basename, (error, result) => {
         if (error) {
-          reject({
+          resolve({
             success: false,
             error: error.message,
           });
@@ -116,7 +116,23 @@ ipcMain.handle("align_processing", async (event, inputAlign) => {
       }
     }
     //异步调用alass命令程序
-    return await SrtAssAlign(srtfile, assfile, input1, input2, output);
+    return new Promise((resolve) => {
+      SrtAssAlign(srtfile, assfile, input1, input2, output, (error, result) => {
+        if (error) {
+          //能够让程序处理错误后，能够继续运行
+          resolve({
+            success: false,
+            error: error.message,
+            file: srtfile,
+          });
+        } else {
+          resolve({
+            success: true,
+            file: result,
+          });
+        }
+      });
+    });
   } catch (error) {
     console.error("处理失败:", error);
     throw error;
@@ -129,16 +145,17 @@ ipcMain.handle("scaled_processing", async (event, inputdata) => {
     const file = inputdata[1];
     const target_size = inputdata[2];
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       ScaledBorderAndShadowProcess(
         input_dir,
         file,
         target_size,
         (error, result) => {
           if (error) {
-            reject({
+            resolve({
               success: false,
               error: error.message,
+              file: result,
             });
           } else {
             resolve({
@@ -162,10 +179,10 @@ ipcMain.handle("fontname_processing", async (event, inputdata) => {
     const style = inputdata[2];
     const fontname = inputdata[3];
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       FontNameProcess(input_dir, file, style, fontname, (error, result) => {
         if (error) {
-          reject({
+          resolve({
             success: false,
             error: error.message,
           });
@@ -190,7 +207,7 @@ ipcMain.handle("styleinformation_processing", async (event, inputdata) => {
     const stylename = inputdata[2];
     const styleinformation = inputdata[3];
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       AssStyleProcess(
         input_dir,
         file,
@@ -198,7 +215,7 @@ ipcMain.handle("styleinformation_processing", async (event, inputdata) => {
         styleinformation,
         (error, result) => {
           if (error) {
-            reject({
+            resolve({
               success: false,
               error: error.message,
             });
@@ -233,10 +250,10 @@ ipcMain.handle("assextractor_processing", async (event, inputdata) => {
       }
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       ASSExtractor(input, file, output, language, basename, (error, result) => {
         if (error) {
-          reject({
+          resolve({
             success: false,
             error: error.message,
           });
@@ -272,7 +289,7 @@ ipcMain.handle("mkvextractor_processing", async (event, inputdata) => {
       }
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       MKVExtractor(
         input,
         file,
@@ -282,7 +299,7 @@ ipcMain.handle("mkvextractor_processing", async (event, inputdata) => {
         basename,
         (error, result) => {
           if (error) {
-            reject({
+            resolve({
               success: false,
               error: error.message,
             });
