@@ -1,14 +1,14 @@
-import { app, BrowserWindow, ipcMain, Menu } from "electron";
+import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 import process from "process";
 import fs from "fs";
 import { mkdir } from "fs/promises";
-import { SrtAssConvert } from "./srt-ass-process-ui/srt-ass-convert-electron";
-import { SrtAssAlign } from "./srt-ass-process-ui/srt-ass-align-electron";
-import { FontNameProcess } from "./ass-process-ui/ass-fontname-process-electron";
-import { AssStyleProcess } from "./ass-process-ui/ass-style-process-electron";
-import { ScaledBorderAndShadowProcess } from "./ass-process-ui/ass-scaled-process-electron";
+import { SrtAssConvert } from "./srt-ass-process/srt-ass-convert-electron";
+import { SrtAssAlign } from "./srt-ass-process/srt-ass-align-electron";
+import { FontNameProcess } from "./ass-process/ass-fontname-process-electron";
+import { AssStyleProcess } from "./ass-process/ass-style-process-electron";
+import { ScaledBorderAndShadowProcess } from "./ass-process/ass-scaled-process-electron";
 import { ASSExtractor } from "./mkv-ass-extraction/ass-extraction";
 import { MKVExtractor } from "./mkv-ass-extraction/mkv-extraction";
 
@@ -316,4 +316,11 @@ ipcMain.handle("mkvextractor_processing", async (event, inputdata) => {
     console.error("处理失败:", error);
     throw error;
   }
+});
+
+ipcMain.handle("open-directory-dialog", async () => {
+  const result = await dialog.showOpenDialog({
+    properties: ["openDirectory"],
+  });
+  return result.filePaths[0] || null;
 });

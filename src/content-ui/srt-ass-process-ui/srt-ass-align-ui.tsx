@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SRTASSAlign } from "@models/srt-ass-process/srt-ass-align";
+import { FolderSelector } from "@models/local-process/folder-selector";
 
 export function Srt_Ass_Align_UI() {
   const form = useForm();
@@ -27,6 +28,8 @@ export function Srt_Ass_Align_UI() {
   const [srtsuffix, setSrtsuffix] = useState("");
   const [asssuffix, setAsssuffix] = useState("");
   const [logtext, setLogtext] = useState("");
+  //聚焦测试 必须要注意inputRef.current是否为空，并且还要注意useRef链家类型参数：HTMLTextAreaElement
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   return (
     <Form {...form}>
@@ -42,33 +45,90 @@ export function Srt_Ass_Align_UI() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>SRT输入目录</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="请输入SRT字幕所在的目录"
-                  {...field}
-                  onChange={(e) => setInput1(e.target.value)}
-                />
-              </FormControl>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto",
+                  gap: "10px",
+                }}
+              >
+                <FormControl>
+                  <Input
+                    placeholder="请输入SRT字幕所在的目录"
+                    {...field}
+                    onChange={(e) => setInput1(e.target.value)}
+                    value={input1}
+                  />
+                </FormControl>
+                <Button
+                  onClick={async () => {
+                    const result = await FolderSelector();
+                    if (result) {
+                      setInput1(result);
+                    }
+                  }}
+                >
+                  搜索
+                </Button>
+              </div>
               <FormDescription></FormDescription>
               <FormMessage />
               <FormLabel>ASS输入目录</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="请输入ASS字幕（参考）所在的目录"
-                  {...field}
-                  onChange={(e) => setInput2(e.target.value)}
-                />
-              </FormControl>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto",
+                  gap: "10px",
+                }}
+              >
+                <FormControl>
+                  <Input
+                    placeholder="请输入ASS字幕所在的目录"
+                    {...field}
+                    onChange={(e) => setInput2(e.target.value)}
+                    value={input2}
+                  />
+                </FormControl>
+                <Button
+                  onClick={async () => {
+                    const result = await FolderSelector();
+                    if (result) {
+                      setInput2(result);
+                    }
+                  }}
+                >
+                  搜索
+                </Button>
+              </div>
               <FormDescription></FormDescription>
               <FormMessage />
               <FormLabel>SRT字幕输出目录</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="请输入对齐后的SRT字幕的输出目录"
-                  {...field}
-                  onChange={(e) => setOutput(e.target.value)}
-                />
-              </FormControl>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto",
+                  gap: "10px",
+                }}
+              >
+                <FormControl>
+                  <Input
+                    placeholder="请输入SRT字幕输出的目录"
+                    {...field}
+                    onChange={(e) => setOutput(e.target.value)}
+                    value={output}
+                  />
+                </FormControl>
+                <Button
+                  onClick={async () => {
+                    const result = await FolderSelector();
+                    if (result) {
+                      setOutput(result);
+                    }
+                  }}
+                >
+                  搜索
+                </Button>
+              </div>
               <FormDescription></FormDescription>
               <FormMessage />
               <FormLabel>SRT字幕后缀</FormLabel>
@@ -77,6 +137,7 @@ export function Srt_Ass_Align_UI() {
                   placeholder="请输入SRT字幕后缀，例如：.jp.srt"
                   {...field}
                   onChange={(e) => setSrtsuffix(e.target.value)}
+                  value={srtsuffix}
                 />
               </FormControl>
               <FormDescription></FormDescription>
@@ -87,6 +148,7 @@ export function Srt_Ass_Align_UI() {
                   placeholder="请输入ASS字幕后缀，例如：.sc.ass"
                   {...field}
                   onChange={(e) => setAsssuffix(e.target.value)}
+                  value={asssuffix}
                 />
               </FormControl>
               <FormDescription></FormDescription>
@@ -94,20 +156,39 @@ export function Srt_Ass_Align_UI() {
             </FormItem>
           )}
         />
-        <Button
-          onClick={async () =>
-            click(
-              input1,
-              input2,
-              output,
-              srtsuffix,
-              asssuffix,
-              (log) => setLogtext((prev) => prev + log) // 实时更新日志
-            )
-          }
+        <div
+          style={{
+            display: "flex",
+            gridTemplateColumns: "1fr auto",
+            gap: "20px",
+          }}
         >
-          提交
-        </Button>
+          <Button
+            onClick={async () =>
+              click(
+                input1,
+                input2,
+                output,
+                srtsuffix,
+                asssuffix,
+                (log) => setLogtext((prev) => prev + log) // 实时更新日志
+              )
+            }
+          >
+            提交
+          </Button>
+          <Button
+            onClick={() => {
+              setInput1("");
+              setInput2("");
+              setOutput("");
+              setSrtsuffix("");
+              setAsssuffix("");
+            }}
+          >
+            重置
+          </Button>
+        </div>
         <FormField
           control={form.control}
           name="日志信息"
@@ -119,6 +200,7 @@ export function Srt_Ass_Align_UI() {
                   placeholder="日志记录..."
                   className="logtext"
                   {...field}
+                  ref={inputRef}
                   value={logtext}
                   maxLength={10}
                 />
@@ -127,7 +209,16 @@ export function Srt_Ass_Align_UI() {
             </FormItem>
           )}
         />
-        <Button onClick={() => setLogtext("")}>清空</Button>
+        <Button
+          onClick={() => {
+            setLogtext("");
+            if (inputRef.current) {
+              inputRef.current.focus();
+            }
+          }}
+        >
+          清空
+        </Button>
       </form>
     </Form>
   );
