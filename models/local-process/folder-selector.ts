@@ -1,6 +1,6 @@
 const { ipcRenderer } = window.require("electron");
 
-export const FolderSelector = async () => {
+export const folderSelector = async () => {
   const result = await ipcRenderer.invoke("open-directory-dialog");
   return result;
 };

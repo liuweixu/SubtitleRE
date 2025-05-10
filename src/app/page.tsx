@@ -25,8 +25,15 @@ export default function Page() {
           <ModeToggle />
         </header>
 
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="flex flex-1 flex-col gap-4 p-4 pt-">
+        <div
+          className="flex flex-1 flex-col gap-4 p-4 pt-0  bg-cover bg-center bg-no-repeat  bg-fixed"
+          style={
+            {
+              // backgroundImage: "url('29290__26661_66095083_p0.png')",
+            }
+          }
+        >
+          <div className="flex flex-1 flex-col gap-4 p-4 pl- bg-opacity-90">
             {content && (
               <div className="min-h-[75vh] flex-1 rounded-xl bg-muted/50 p-4">
                 {content}

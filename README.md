@@ -87,7 +87,7 @@ npm run electorn:build
 
 ### 界面
 
-![](public/image.png)
+![](profile_image/image.png)
 
 ## 详细教程与问题解决
 

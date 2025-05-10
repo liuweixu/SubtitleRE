@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRef, useState } from "react";
 import { SRTASSAlign } from "@models/srt-ass-process/srt-ass-align";
-import { FolderSelector } from "@models/local-process/folder-selector";
+import { folderSelector } from "@models/local-process/folder-selector";
 
 export function Srt_Ass_Align_UI() {
   const form = useForm();
@@ -28,13 +28,14 @@ export function Srt_Ass_Align_UI() {
   const [srtsuffix, setSrtsuffix] = useState("");
   const [asssuffix, setAsssuffix] = useState("");
   const [logtext, setLogtext] = useState("");
-  //聚焦测试 必须要注意inputRef.current是否为空，并且还要注意useRef链家类型参数：HTMLTextAreaElement
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  //聚焦测试 必须要注意textareaRef.current是否为空，并且还要注意useRef链家类型参数：HTMLTextAreaElement
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const input1Ref = useRef<HTMLInputElement>(null);
 
   return (
     <Form {...form}>
       <form
-        className="space-y-8"
+        className="space-y-8 bg-opacity-100"
         onSubmit={(e) => {
           e.preventDefault();
         }}
@@ -58,11 +59,12 @@ export function Srt_Ass_Align_UI() {
                     {...field}
                     onChange={(e) => setInput1(e.target.value)}
                     value={input1}
+                    ref={input1Ref}
                   />
                 </FormControl>
                 <Button
                   onClick={async () => {
-                    const result = await FolderSelector();
+                    const result = await folderSelector();
                     if (result) {
                       setInput1(result);
                     }
@@ -91,7 +93,7 @@ export function Srt_Ass_Align_UI() {
                 </FormControl>
                 <Button
                   onClick={async () => {
-                    const result = await FolderSelector();
+                    const result = await folderSelector();
                     if (result) {
                       setInput2(result);
                     }
@@ -120,7 +122,7 @@ export function Srt_Ass_Align_UI() {
                 </FormControl>
                 <Button
                   onClick={async () => {
-                    const result = await FolderSelector();
+                    const result = await folderSelector();
                     if (result) {
                       setOutput(result);
                     }
@@ -184,6 +186,7 @@ export function Srt_Ass_Align_UI() {
               setOutput("");
               setSrtsuffix("");
               setAsssuffix("");
+              input1Ref.current?.focus();
             }}
           >
             重置
@@ -200,7 +203,7 @@ export function Srt_Ass_Align_UI() {
                   placeholder="日志记录..."
                   className="logtext"
                   {...field}
-                  ref={inputRef}
+                  ref={textareaRef}
                   value={logtext}
                   maxLength={10}
                 />
@@ -212,8 +215,8 @@ export function Srt_Ass_Align_UI() {
         <Button
           onClick={() => {
             setLogtext("");
-            if (inputRef.current) {
-              inputRef.current.focus();
+            if (textareaRef.current) {
+              textareaRef.current.focus();
             }
           }}
         >
