@@ -23,6 +23,8 @@ import { ASS_Fontname_UI } from "@/content-ui/ass-process-ui/ass-fontname-proces
 import { ASS_Style_UI } from "@/content-ui/ass-process-ui/ass-style-process-ui";
 import { ASS_Scaled_UI } from "@/content-ui/ass-process-ui/ass-scaled-process-ui";
 
+import { v4 as uuidv4 } from "uuid";
+
 const data = {
   teams: [
     {
@@ -39,14 +41,18 @@ const data = {
       isActive: true,
       items: [
         {
+          uid: uuidv4(),
           title: "SRT对齐ASS",
           url: "#",
           content: <Srt_Ass_Align_UI />,
+          isSubActive: false,
         },
         {
+          uid: uuidv4(),
           title: "SRT转为ASS",
           url: "#",
           content: <Srt_Ass_Convert_UI />,
+          isSubActive: false,
         },
       ],
     },
@@ -56,14 +62,18 @@ const data = {
       icon: Bot,
       items: [
         {
+          uid: uuidv4(),
           title: "MKV字幕提取",
           url: "#",
           content: <MKV_Extration_UI />,
+          isSubActive: false,
         },
         {
+          uid: uuidv4(),
           title: "ASS字幕提取",
           url: "#",
           content: <ASS_Extration_UI />,
+          isSubActive: false,
         },
       ],
     },
@@ -73,19 +83,25 @@ const data = {
       icon: BookOpen,
       items: [
         {
+          uid: uuidv4(),
           title: "ScaledBorderAndShadow",
           url: "#",
           content: <ASS_Scaled_UI />,
+          isSubActive: false,
         },
         {
+          uid: uuidv4(),
           title: "ASS字体名称修改",
           url: "#",
           content: <ASS_Fontname_UI />,
+          isSubActive: false,
         },
         {
+          uid: uuidv4(),
           title: "ASS样式信息修改",
           url: "#",
           content: <ASS_Style_UI />,
+          isSubActive: false,
         },
       ],
     },

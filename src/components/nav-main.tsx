@@ -18,6 +18,9 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 
+import classNames from "classnames";
+import { useState } from "react";
+
 export function NavMain({
   items,
   onItemClick,
@@ -28,13 +31,16 @@ export function NavMain({
     icon?: LucideIcon;
     isActive?: boolean;
     items?: {
+      uid: string; // for react key
       title: string;
       url: string;
       content?: React.ReactNode;
+      isSubActive: boolean;
     }[];
   }[];
   onItemClick?: (content: React.ReactNode) => void;
 }) {
+  const [activeSubItem, setActiveSubItem] = useState<string | null>(null);
   return (
     <SidebarGroup>
       <SidebarGroupLabel>字幕处理工具</SidebarGroupLabel>
@@ -63,9 +69,15 @@ export function NavMain({
                           href={subItem.url}
                           onClick={(e) => {
                             e.preventDefault();
+                            setActiveSubItem(subItem.uid);
                             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                             subItem.content && onItemClick?.(subItem.content);
                           }}
+                          className={classNames({
+                            "bg-accent text-accent-foreground":
+                              activeSubItem === subItem.uid,
+                            "hover:bg-accent/00": activeSubItem !== subItem.uid,
+                          })}
                         >
                           <span>{subItem.title}</span>
                         </a>
