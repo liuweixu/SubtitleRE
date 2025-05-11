@@ -32,6 +32,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "@models": path.resolve(__dirname, "./models"),
+      "@materials": path.resolve(__dirname, "./materials"),
     },
   },
 });

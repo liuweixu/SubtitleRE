@@ -12,7 +12,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@models/*": ["./models/*"]
+      "@models/*": ["./models/*"],
+      "@materials/*": ["./materials/*"]
     }
   },
   "include": [
@@ -20,7 +21,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "electron/**/*.ts"
+    "electron/**/*.ts",
+    "materials/reactbits/text-animation/ShinyText.tsx"
   ],
   "exclude": ["node_modules"]
 }

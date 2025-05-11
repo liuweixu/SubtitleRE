@@ -10,7 +10,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@models/*": ["./models/*"]
+      "@models/*": ["./models/*"],
+      "@materials/*": ["./materials/*"]
     },
     /* Bundler mode */
     "moduleResolution": "bundler",
