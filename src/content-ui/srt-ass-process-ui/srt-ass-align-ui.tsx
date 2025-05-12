@@ -176,6 +176,7 @@ export function Srt_Ass_Align_UI() {
                 (log) => setLogtext((prev) => prev + log) // 实时更新日志
               )
             }
+            variant={"outline"}
           >
             提交
           </Button>
@@ -188,6 +189,7 @@ export function Srt_Ass_Align_UI() {
               setAsssuffix("");
               input1Ref.current?.focus();
             }}
+            variant={"outline"}
           >
             重置
           </Button>
@@ -219,6 +221,7 @@ export function Srt_Ass_Align_UI() {
               textareaRef.current.focus();
             }
           }}
+          variant={"outline"}
         >
           清空
         </Button>

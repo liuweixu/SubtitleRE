@@ -1,3 +1,7 @@
+import { verify } from "@models/common/verify-blank";
+import { verify_suffix } from "@models/common/verify-suffix";
+import { ReferenceFormat } from "@models/common/reference_format";
+
 export const SRTASSAlign = () => {
   // 点击按钮后触发
   async function click(
@@ -9,24 +13,52 @@ export const SRTASSAlign = () => {
     onLog: (log: string) => void // 日志回调函数
   ) {
     try {
+      if (!verify([input1, input2, output, srtsuffix, asssuffix])) {
+        onLog(`请输入完整的参数\n\n`);
+        return;
+      }
+      if (!verify_suffix(srtsuffix, "srt")) {
+        onLog(`srt后缀名有误\n参考格式: ${ReferenceFormat.SRTSuffix}\n\n`);
+        return;
+      }
+      if (!verify_suffix(asssuffix, "ass")) {
+        onLog(`ass后缀名有误\n参考格式: ${ReferenceFormat.ASSSuffix}\n\n`);
+        return;
+      }
       const { ipcRenderer } = window.require("electron");
       const fileInput1 = await ipcRenderer.invoke("read-directory", input1);
-      const srtFilesInput1 = fileInput1.filter((file: string) =>
+      if (fileInput1.success === false) {
+        onLog(`读取 ${input1} 目录失败\n失败信息: ${fileInput1.error}\n\n`);
+        return;
+      }
+      const srtFilesInput = fileInput1.files.filter((file: string) =>
         file.endsWith(srtsuffix)
       );
+      if (srtFilesInput.length === 0) {
+        onLog(`${input1} 目录下没有 ${srtsuffix} 后缀的文件\n\n`);
+        return;
+      }
       const fileInput2 = await ipcRenderer.invoke("read-directory", input2);
-      const srtFilesInput2 = fileInput2.filter((file: string) =>
+      if (fileInput2.success === false) {
+        onLog(`读取 ${input2} 目录失败\n失败信息: ${fileInput2.error}\n\n`);
+        return;
+      }
+      const assFilesInput = fileInput2.files.filter((file: string) =>
         file.endsWith(asssuffix)
       );
+      if (assFilesInput.length === 0) {
+        onLog(`${input2} 目录下没有 ${asssuffix} 后缀的文件\n\n`);
+        return;
+      }
 
       // 获取基础文件名
       const getBaseName = (filename: string) => filename.split(".")[0];
 
       // 查找匹配的文件对
       const pairs = [];
-      for (const jpFile of srtFilesInput1) {
+      for (const jpFile of srtFilesInput) {
         const baseJp = getBaseName(jpFile);
-        for (const cnFile of srtFilesInput2) {
+        for (const cnFile of assFilesInput) {
           const baseCn = getBaseName(cnFile);
           if (baseJp === baseCn) {
             pairs.push([jpFile, cnFile]);
@@ -48,6 +80,7 @@ export const SRTASSAlign = () => {
           alignfails.push(`${pair[0]} 对齐失败: ${logtext.error}\n`);
         }
       }
+      onLog("\n");
       if (alignfails.length > 0) {
         onLog(`\n\n以下文件对齐失败：\n${alignfails.join("\n")}`);
       }

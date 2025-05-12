@@ -55,10 +55,13 @@ app.on("window-all-closed", () => {
 ipcMain.handle("read-directory", async (event, dirPath) => {
   try {
     const files = await fs.promises.readdir(dirPath);
-    return files;
+    return { success: true, files: files };
   } catch (error) {
     console.error("读取目录出错:", error);
-    throw error;
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "未知错误",
+    };
   }
 });
 
